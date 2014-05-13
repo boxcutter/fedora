@@ -1,8 +1,8 @@
 {
   "variables": {
-    "provisioner": "provisionerless",
-    "provisioner_version": "",
-    "provisioner_set_path": "",
+    "cm": "nocm",
+    "cm_version": "",
+    "cm_set_path": "",
     "iso_url": "http://mirrors.kernel.org/fedora/releases/20/Fedora/i386/iso/Fedora-20-i386-DVD.iso",
     "iso_checksum": "284ea30ddd50db1b30cd5cd9fae7495dad8714ef1e4428d69a8c8ce80e03b6a9"
   },
@@ -56,23 +56,22 @@
   "provisioners": [{
     "type": "shell",
     "environment_vars": [
-      "PROVISIONER={{user `provisioner`}}",
-      "PROVISIONER_VERSION={{user `provisioner_version`}}",
-      "PROVISIONER_SET_PATH={{user `provisioner_set_path`}}"
+      "CM={{user `cm`}}",
+      "CM_VERSION={{user `cm_version`}}",
+      "CM_SET_PATH={{user `cm_set_path`}}"
     ],
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
     "scripts": [
       "script/sshd.sh",
       "script/vagrant.sh",
-      "script/vmtools.sh",
-      "script/provisioner.sh",
-      "script/cleanup.sh",
-      "script/zerodisk.sh"
+      "script/vmtool.sh",
+      "script/cmtool.sh",
+      "script/cleanup.sh"
     ]
   }],
   "post-processors": [{
     "type": "vagrant",
     "keep_input_artifact": false,
-    "output": "../../{{.Provider}}/fedora20-i386-{{user `provisioner`}}{{user `provisioner_version`}}.box"
+    "output": "box/{{.Provider}}/fedora20-i386-{{user `cm`}}{{user `cm_version`}}.box"
   }]
 }
