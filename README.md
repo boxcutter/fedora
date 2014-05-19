@@ -2,8 +2,23 @@
 
 ### Overview
 
-The repository contains templates for Fedora that can create Vagrant boxes
-using Packer ([Website](packer.io)) ([Github](http://github.com/mitchellh/packer))
+This repository contains templates for Fedora that can create Vagrant boxes
+using Packer.
+
+## Current Boxes
+
+64-bit boxes:
+
+* [box-cutter/fedora20](https://vagrantcloud.com/box-cutter/fedora20) - Fedora 20 (64-bit)
+* [box-cutter/fedora19](https://vagrantcloud.com/box-cutter/fedora19) - Fedora 19 (64-bit)
+* [box-cutter/fedora18](https://vagrantcloud.com/box-cutter/fedora18) - Fedora 18 (64-bit)
+
+32-bit boxes:
+
+* [box-cutter/fedora20-i386](https://vagrantcloud.com/box-cutter/fedora20-i386) - Fedora 20 (32-bit)
+* [box-cutter/fedora19-i386](https://vagrantcloud.com/box-cutter/fedora19-i386) - Fedora 19 (32-bit)
+* [box-cutter/fedora18-i386](https://vagrantcloud.com/box-cutter/fedora18-i386) - Fedora 18 (32-bit)
+
 
 ## Building the Vagrant boxes
 
