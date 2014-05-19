@@ -42,12 +42,35 @@ VIRTUALBOX_OUTPUT := output-virtualbox-iso
 VMWARE_BUILDER := vmware-iso
 VIRTUALBOX_BUILDER := virtualbox-iso
 CURRENT_DIR = $(shell pwd)
+SOURCES := $(wildcard script/*.sh)
 
 .PHONY: all list clean
 
 all: $(BOX_FILES)
 
 test: $(TEST_BOX_FILES)
+
+###############################################################################
+# Target shortcuts
+define SHORTCUT
+
+$(1): vmware/$(1) virtualbox/$(1)
+
+test-$(1): test-vmware/$(1) test-virtualbox/$(1)
+
+vmware/$(1): $(VMWARE_BOX_DIR)/$(1)$(BOX_SUFFIX)
+
+test-vmware/$(1): test-$(VMWARE_BOX_DIR)/$(1)$(BOX_SUFFIX)
+
+virtualbox/$(1): $(VIRTUALBOX_BOX_DIR)/$(1)$(BOX_SUFFIX)
+
+test-virtualbox/$(1): test-$(VIRTUALBOX_BOX_DIR)/$(1)$(BOX_SUFFIX)
+
+endef
+
+SHORTCUT_TARGETS := fedora20 fedora20-i386 fedora19 fedora19-i386 fedora18 fedora18-i386
+$(foreach i,$(SHORTCUT_TARGETS),$(eval $(call SHORTCUT,$(i))))
+###############################################################################
 
 # Generic rule - not used currently
 #$(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): %.json
@@ -56,32 +79,32 @@ test: $(TEST_BOX_FILES)
 #	mkdir -p $(VMWARE_BOX_DIR)
 #	packer build -only=vmware-iso $(PACKER_VARS) $<
 
-$(VMWARE_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json
+$(VMWARE_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
 	packer build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_X86_64)" $<
 
-$(VMWARE_BOX_DIR)/fedora19$(BOX_SUFFIX): fedora19.json
+$(VMWARE_BOX_DIR)/fedora19$(BOX_SUFFIX): fedora19.json $(SOURCES) http/ks.cfg
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
 	packer build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_X86_64)" $<
 
-$(VMWARE_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json
+$(VMWARE_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fedora18.cfg
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
 	packer build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
 
-$(VMWARE_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json
+$(VMWARE_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
 	packer build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_I386)" $<
 
-$(VMWARE_BOX_DIR)/fedora19-i386$(BOX_SUFFIX): fedora19-i386.json
+$(VMWARE_BOX_DIR)/fedora19-i386$(BOX_SUFFIX): fedora19-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
 	packer build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_I386)" $<
 
-$(VMWARE_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json
+$(VMWARE_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) http/ks-fedora18.cfg
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
 	packer build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_I386)" $<
@@ -93,39 +116,43 @@ $(VMWARE_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json
 #	mkdir -p $(VIRTUALBOX_BOX_DIR)
 #	packer build -only=virtualbox-iso $(PACKER_VARS) $<
 	
-$(VIRTUALBOX_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json
+$(VIRTUALBOX_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
 	packer build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_X86_64)" $<
 
-$(VIRTUALBOX_BOX_DIR)/fedora19$(BOX_SUFFIX): fedora19.json
+$(VIRTUALBOX_BOX_DIR)/fedora19$(BOX_SUFFIX): fedora19.json $(SOURCES) http/ks.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
 	packer build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_X86_64)" $<
 
-$(VIRTUALBOX_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json
+$(VIRTUALBOX_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fedora18.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
 	packer build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
 
-$(VIRTUALBOX_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json
+$(VIRTUALBOX_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
 	packer build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_I386)" $<
 
-$(VIRTUALBOX_BOX_DIR)/fedora19-i386$(BOX_SUFFIX): fedora19-i386.json
+$(VIRTUALBOX_BOX_DIR)/fedora19-i386$(BOX_SUFFIX): fedora19-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
 	packer build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_I386)" $<
 
-$(VIRTUALBOX_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json
+$(VIRTUALBOX_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) http/ks-fedora18.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
 	packer build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_I386)" $<
 
 list:
-	@for box_file in $(BOX_FILES) ; do \
-		echo $$box_file ; \
+	@echo "Prepend 'vmware/' or 'virtualbox/' to build only one target platform:"
+	@echo "  make vmware/fedora20"
+	@echo ""
+	@echo "Targets:"
+	@for shortcut_target in $(SHORTCUT_TARGETS) ; do \
+		echo $$shortcut_target ; \
 	done ;
 
 clean: clean-builders clean-output clean-packer-cache
