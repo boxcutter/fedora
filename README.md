@@ -62,6 +62,7 @@ used are:
 * CM_VERSION
 * HEADLESS
 * \<iso_path\>
+* UPDATE
 
 `Makefile.local` is most commonly used to override the default configuration
 management tool, for example with Chef:
@@ -83,6 +84,10 @@ You can also specify a variable `CM_VERSION`, if supported by the
 configuration management tool, to override the default of `latest`.
 The value of `CM_VERSION` should have the form `x.y` or `x.y.z`,
 such as `CM_VERSION := 11.12.4`
+
+The variable `UPDATE` can be used to perform OS patch management.  The
+default is to not apply OS updates by default.  When `UPDATE := true`,
+the latest OS updates will be applied.
 
 The variable `HEADLESS` can be set to run Packer in headless mode.
 Set `HEADLESS := true`, the default is false.
