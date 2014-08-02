@@ -55,8 +55,16 @@ Upon logout `make ssh-*` will automatically de-register the box as well.
 ### Makefile.local override
 
 You can create a `Makefile.local` file alongside the `Makefile` to override
-some of the default settings.  It is most commonly used to override the
-default configuration management tool, for example with Chef:
+some of the default settings.  The variables can that can be currently
+used are:
+
+* CM
+* CM_VERSION
+* HEADLESS
+* \<iso_path\>
+
+`Makefile.local` is most commonly used to override the default configuration
+management tool, for example with Chef:
 
     # Makefile.local
     CM := chef
@@ -75,6 +83,9 @@ You can also specify a variable `CM_VERSION`, if supported by the
 configuration management tool, to override the default of `latest`.
 The value of `CM_VERSION` should have the form `x.y` or `x.y.z`,
 such as `CM_VERSION := 11.12.4`
+
+The variable `HEADLESS` can be set to run Packer in headless mode.
+Set `HEADLESS := true`, the default is false.
 
 Another use for `Makefile.local` is to override the default locations
 for the Ubuntu install ISO files.
