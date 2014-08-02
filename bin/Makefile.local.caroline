@@ -6,10 +6,14 @@ FEDORA20_I386 := $(caroline_fedora)/Fedora-20-i386-DVD.iso
 FEDORA19_I386 := $(caroline_fedora)/Fedora-19-i386-DVD.iso
 FEDORA18_I386 := $(caroline_fedora)/Fedora-18-i386-DVD.iso
 
-test-vagrantcloud:
-	@for shortcut_target in $(SHORTCUT_TARGETS) ; do \
-		bin/test-vagrantcloud-box.sh box-cutter/$$shortcut_target virtualbox virtualbox $(CURRENT_DIR)/test/*_spec.rb || exit; \
-	done
+test-vagrantcloud: test-vagrantcloud-vmware test-vagrantcloud-virtualbox
+
+test-vagrantcloud-vmware:
 	@for shortcut_target in $(SHORTCUT_TARGETS) ; do \
 		bin/test-vagrantcloud-box.sh box-cutter/$$shortcut_target vmware_fusion vmware_desktop $(CURRENT_DIR)/test/*_spec.rb || exit; \
+	done
+
+test-vagrantcloud-virtualbox:
+	@for shortcut_target in $(SHORTCUT_TARGETS) ; do \
+		bin/test-vagrantcloud-box.sh box-cutter/$$shortcut_target virtualbox virtualbox $(CURRENT_DIR)/test/*_spec.rb || exit; \
 	done
