@@ -5,6 +5,11 @@
     "cm_set_path": "",
     "headless": "",
     "update": "false",
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "ftp_proxy": "{{env `ftp_proxy`}}",
+    "rsync_proxy": "{{env `rsync_proxy`}}",
+    "no_proxy": "{{env `no_proxy`}}",
     "iso_url": "http://mirrors.kernel.org/fedora/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-DVD.iso",
     "iso_checksum": "91c5f0aca391acf76a047e284144f90d66d3d5f5dcd26b01f368a43236832c03"
   },
@@ -63,7 +68,12 @@
       "CM={{user `cm`}}",
       "CM_VERSION={{user `cm_version`}}",
       "CM_SET_PATH={{user `cm_set_path`}}",
-      "UPDATE={{user `update`}}"
+      "UPDATE={{user `update`}}",
+      "http_proxy={{user `http_proxy`}}",
+      "https_proxy={{user `https_proxy`}}",
+      "ftp_proxy={{user `ftp_proxy`}}",
+      "rsync_proxy={{user `rsync_proxy`}}",
+      "no_proxy={{user `no_proxy`}}"
     ],
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
     "scripts": [
