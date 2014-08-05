@@ -33,10 +33,21 @@ install_chef()
         echo "==> Installing Chef version ${CM_VERSION}"
         curl -L https://www.opscode.com/chef/install.sh | sh -s -- -v ${CM_VERSION}
     fi
-    if [[ ${CM_SET_PATH:-} == 'true' ]]; then
-      echo "Automatically setting vagrant PATH to Chef Client"
-      echo 'export PATH="/opt/chef/embedded/bin:$PATH"' >> /home/vagrant/.bash_profile
+}
+
+install_chefdk()
+{
+    echo "==> Installing Chef Development Kit"
+    if [[ ${CM_VERSION:-} == 'latest' ]]; then
+        echo "==> Installing latest Chef version"
+        curl -Lk https://www.opscode.com/chef/install.sh | sh -s -- -P chefdk
+    else
+        echo "==> Installing Chef version ${CM_VERSION}"
+        curl -Lk https://www.opscode.com/chef/install.sh | sh -s -- -P chefdk -v ${CM_VERSION}
     fi
+    echo "==> Adding Chef Development Kit and Ruby to PATH"
+    echo 'eval "$(chef shell-init bash)"' >> /home/vagrant/.bash_profile
+    chown vagrant /home/vagrant/.bash_profile
 }
 
 install_salt()
