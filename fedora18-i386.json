@@ -1,5 +1,6 @@
 {
   "variables": {
+    "version": "0.1.0",
     "cm": "nocm",
     "cm_version": "",
     "headless": "",
@@ -86,6 +87,6 @@
   "post-processors": [{
     "type": "vagrant",
     "keep_input_artifact": false,
-    "output": "box/{{.Provider}}/fedora18-i386-{{user `cm`}}{{user `cm_version`}}.box"
+    "output": "box/{{.Provider}}/fedora18-i386-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box"
   }]
 }
