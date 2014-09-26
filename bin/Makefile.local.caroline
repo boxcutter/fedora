@@ -6,10 +6,11 @@ FEDORA20_I386 := $(caroline_fedora)/Fedora-20-i386-DVD.iso
 FEDORA19_I386 := $(caroline_fedora)/Fedora-19-i386-DVD.iso
 FEDORA18_I386 := $(caroline_fedora)/Fedora-18-i386-DVD.iso
 
+VIRTUALBOX_VERSION := $(shell virtualbox --help | head -n 1 | awk '{print $$NF}')
 VMWARE_BOX_FILES := $(wildcard box/vmware/*.box)
 VIRTUALBOX_BOX_FILES := $(wildcard box/virtualbox/*.box)
 VMWARE_S3_BUCKET := s3://box-cutter/fedora/vmware9.8.3/
-VIRTUALBOX_S3_BUCKET := s3://box-cutter/fedora/virtualbox4.3.14/
+VIRTUALBOX_S3_BUCKET := s3://box-cutter/fedora/virtualbox$(VIRTUALBOX_VERSION)/
 S3_GRANT_ID := id=6efa364c53605afa1f4186b2b23ba97a354e74c7b9238317d9f57bc8f6f6bc5a
 ALLUSERS_ID := uri=http://acs.amazonaws.com/groups/global/AllUsers
 
