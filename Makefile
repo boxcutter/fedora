@@ -8,9 +8,11 @@ ifneq (0.5.0, $(word 1, $(sort 0.5.0 $(PACKER_VERSION))))
 $(error Packer version less than 0.5.x, please upgrade)
 endif
 
+FEDORA21_X86_64 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/test/21-Alpha/Server/x86_64/iso/Fedora-Server-DVD-x86_64-21_Alpha.iso
 FEDORA20_X86_64 ?= http://mirrors.kernel.org/fedora/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-DVD.iso
 FEDORA19_X86_64 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/19/Fedora/x86_64/iso/Fedora-19-x86_64-DVD.iso
 FEDORA18_X86_64 ?= http://mirrors.kernel.org/fedora/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-DVD.iso
+FEDORA21_I386 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/test/21-Alpha/Server/i386/iso/Fedora-Server-DVD-i386-21_Alpha.iso
 FEDORA20_I386 ?= http://mirrors.kernel.org/fedora/releases/20/Fedora/i386/iso/Fedora-20-i386-DVD.iso
 FEDORA19_I386 ?= http://mirrors.kernel.org/fedora/releases/19/Fedora/i386/iso/Fedora-19-i386-DVD.iso
 FEDORA18_I386 ?= http://mirrors.kernel.org/fedora/releases/18/Fedora/i386/iso/Fedora-18-i386-DVD.iso
@@ -76,17 +78,23 @@ vmware/$(1): $(VMWARE_BOX_DIR)/$(1)$(BOX_SUFFIX)
 
 test-vmware/$(1): test-$(VMWARE_BOX_DIR)/$(1)$(BOX_SUFFIX)
 
+ssh-vmware/$(1): ssh-$(VMWARE_BOX_DIR)/$(1)$(BOX_SUFFIX)
+
 virtualbox/$(1): $(VIRTUALBOX_BOX_DIR)/$(1)$(BOX_SUFFIX)
 
 test-virtualbox/$(1): test-$(VIRTUALBOX_BOX_DIR)/$(1)$(BOX_SUFFIX)
+
+ssh-virtualbox/$(1): ssh-$(VIRTUALBOX_BOX_DIR)/$(1)$(BOX_SUFFIX)
 
 parallels/$(1): $(PARALLELS_BOX_DIR)/$(1)$(BOX_SUFFIX)
 
 test-parallels/$(1): test-$(PARALLELS_BOX_DIR)/$(1)$(BOX_SUFFIX)
 
+ssh-parallels/$(1): ssh-$(PARALLELS_BOX_DIR)/$(1)$(BOX_SUFFIX)
+
 endef
 
-SHORTCUT_TARGETS := fedora20 fedora20-i386 fedora19 fedora19-i386 fedora18 fedora18-i386
+SHORTCUT_TARGETS := fedora21 fedora21-i386 fedora20 fedora20-i386 fedora19 fedora19-i386 fedora18 fedora18-i386
 $(foreach i,$(SHORTCUT_TARGETS),$(eval $(call SHORTCUT,$(i))))
 ###############################################################################
 
@@ -96,6 +104,11 @@ $(foreach i,$(SHORTCUT_TARGETS),$(eval $(call SHORTCUT,$(i))))
 #	rm -rf output-vmware-iso
 #	mkdir -p $(VMWARE_BOX_DIR)
 #	packer build -only=vmware-iso $(PACKER_VARS) $<
+
+$(VMWARE_BOX_DIR)/fedora21$(BOX_SUFFIX): fedora21.json $(SOURCES) http/ks.cfg
+	rm -rf $(VMWARE_OUTPUT)
+	mkdir -p $(VMWARE_BOX_DIR)
+	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_X86_64)" $<
 
 $(VMWARE_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
 	rm -rf $(VMWARE_OUTPUT)
@@ -111,6 +124,11 @@ $(VMWARE_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fedora
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
 	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
+
+$(VMWARE_BOX_DIR)/fedora21-i386$(BOX_SUFFIX): fedora21-i386.json $(SOURCES) http/ks.cfg
+	rm -rf $(VMWARE_OUTPUT)
+	mkdir -p $(VMWARE_BOX_DIR)
+	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_I386)" $<
 
 $(VMWARE_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(VMWARE_OUTPUT)
@@ -134,6 +152,11 @@ $(VMWARE_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) http
 #	mkdir -p $(VIRTUALBOX_BOX_DIR)
 #	packer build -only=virtualbox-iso $(PACKER_VARS) $<
 
+$(VIRTUALBOX_BOX_DIR)/fedora21$(BOX_SUFFIX): fedora21.json $(SOURCES) http/ks.cfg
+	rm -rf $(VIRTUALBOX_OUTPUT)
+	mkdir -p $(VIRTUALBOX_BOX_DIR)
+	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_X86_64)" $<
+
 $(VIRTUALBOX_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
@@ -148,6 +171,11 @@ $(VIRTUALBOX_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fe
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
 	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
+
+$(VIRTUALBOX_BOX_DIR)/fedora21-i386$(BOX_SUFFIX): fedora21-i386.json $(SOURCES) http/ks.cfg
+	rm -rf $(VIRTUALBOX_OUTPUT)
+	mkdir -p $(VIRTUALBOX_BOX_DIR)
+	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_I386)" $<
 
 $(VIRTUALBOX_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(VIRTUALBOX_OUTPUT)
@@ -171,6 +199,11 @@ $(VIRTUALBOX_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) 
 #	mkdir -p $(PARALLELS_BOX_DIR)
 #	packer build -only=parallels-iso $(PACKER_VARS) $<
 
+$(PARALLELS_BOX_DIR)/fedora21$(BOX_SUFFIX): fedora21.json $(SOURCES) http/ks.cfg
+	rm -rf $(PARALLELS_OUTPUT)
+	mkdir -p $(PARALLELS_BOX_DIR)
+	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_X86_64)" $<
+
 $(PARALLELS_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
 	rm -rf $(PARALLELS_OUTPUT)
 	mkdir -p $(PARALLELS_BOX_DIR)
@@ -185,6 +218,11 @@ $(PARALLELS_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fed
 	rm -rf $(PARALLELS_OUTPUT)
 	mkdir -p $(PARALLELS_BOX_DIR)
 	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
+
+$(PARALLELS_BOX_DIR)/fedora21-i386$(BOX_SUFFIX): fedora21-i386.json $(SOURCES) http/ks.cfg
+	rm -rf $(PARALLELS_OUTPUT)
+	mkdir -p $(PARALLELS_BOX_DIR)
+	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_I386)" $<
 
 $(PARALLELS_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(PARALLELS_OUTPUT)
