@@ -6,7 +6,7 @@ if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
     # Uninstall fuse to fake out the vmware install so it won't try to
     # enable the VMware blocking filesystem
     yum erase -y fuse
-    
+
     # Assume that we've installed all the prerequisites:
     # kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl
     # from the install media via ks.cfg
@@ -115,6 +115,16 @@ if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
     if [[ $VBOX_VERSION = "4.3.10" ]]; then
         ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
     fi
+fi
+
+if [[ $PACKER_BUILDER_TYPE =~ parallels ]]; then
+    echo "==> Installing Parallels tools"
+
+    mount -o loop /home/vagrant/prl-tools-lin.iso /mnt
+    /mnt/install --install-unattended-with-deps
+    umount /mnt
+    rm -rf /home/vagrant/prl-tools-lin.iso
+    rm -f /home/vagrant/.prlctl_version
 fi
 
 echo "==> Removing packages needed for building guest tools"
