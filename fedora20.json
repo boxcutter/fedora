@@ -69,7 +69,7 @@
     "iso_url": "{{ user `iso_url` }}",
     "iso_checksum": "{{ user `iso_checksum` }}",
     "iso_checksum_type": "sha256",
-    "parallels_tools_flavor": "prl-tools-lin.iso",
+    "parallels_tools_flavor": "lin",
     "guest_os_type": "fedora-core",
     "prlctl_version_file": ".prlctl_version",
     "ssh_username": "vagrant",
