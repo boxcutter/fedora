@@ -10,8 +10,8 @@
     "ftp_proxy": "{{env `ftp_proxy`}}",
     "rsync_proxy": "{{env `rsync_proxy`}}",
     "no_proxy": "{{env `no_proxy`}}",
-    "iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/test/21-Alpha/Server/i386/iso/Fedora-Server-DVD-i386-21_Alpha.iso",
-    "iso_checksum": "e08513aa79644b97b7e1a86227233de03950af7de9c96938e03c91268653bed6"
+    "iso_url": "http://mirror.cs.pitt.edu/fedora/linux/releases/test/21-Beta/Server/i386/iso/Fedora-Server-DVD-i386-21_Beta.iso",
+    "iso_checksum": "558f239f4a4e6ec57a4096ea38ce7829ea6e940e5c7bc9fa1e003821bb92d7f8"
   },
   "builders": [{
     "vm_name": "fedora21-i386",
@@ -60,29 +60,6 @@
     "vboxmanage": [
       ["modifyvm", "{{.Name}}", "--memory", "512"],
       ["modifyvm", "{{.Name}}", "--cpus", "1"]
-    ]
-  },
-  {
-    "vm_name": "fedora21-i386",
-    "type": "parallels-iso",
-    "http_directory": "http",
-    "iso_url": "{{ user `iso_url` }}",
-    "iso_checksum": "{{ user `iso_checksum` }}",
-    "iso_checksum_type": "sha256",
-    "parallels_tools_flavor": "lin",
-    "guest_os_type": "fedora-core",
-    "prlctl_version_file": ".prlctl_version",
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
-    "ssh_wait_timeout": "10000s",
-    "boot_command": [
-      "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks.cfg<enter><enter>"
-    ],
-    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -h now",
-    "disk_size": 10140,
-    "prlctl": [
-      ["set", "{{.Name}}", "--memsize", "512"],
-      ["set", "{{.Name}}", "--cpus", "1"]
     ]
   }],
   "provisioners": [{
