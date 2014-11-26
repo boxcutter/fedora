@@ -10,21 +10,27 @@ using Packer.
 
 64-bit boxes:
 
-* [box-cutter/fedora20](https://vagrantcloud.com/box-cutter/fedora20) - Fedora 20 (64-bit), VMware 421MB/VirtualBox 364MB
-* [box-cutter/fedora19](https://vagrantcloud.com/box-cutter/fedora19) - Fedora 19 (64-bit), VMware 400MB/VirtualBox 336MB
-* [box-cutter/fedora18](https://vagrantcloud.com/box-cutter/fedora18) - Fedora 18 (64-bit), VMware 359MB/VirtualBox 300MB
+* [box-cutter/fedora21](https://vagrantcloud.com/box-cutter/fedora21) - Fedora 21 [Beta] (64-bit), VirtualBox 397MB
+* [box-cutter/fedora20](https://vagrantcloud.com/box-cutter/fedora20) - Fedora 20 (64-bit), VMware 429MB/VirtualBox 363MB/Parallels 416MB
+* [box-cutter/fedora19](https://vagrantcloud.com/box-cutter/fedora19) - Fedora 19 (64-bit), VMware 398MB/VirtualBox 342MB/Parallels 383MB
+* [box-cutter/fedora18](https://vagrantcloud.com/box-cutter/fedora18) - Fedora 18 (64-bit), VMware 366MB/VirtualBox 302MB/Parallels 346MB
 
 32-bit boxes:
 
-* [box-cutter/fedora20-i386](https://vagrantcloud.com/box-cutter/fedora20-i386) - Fedora 20 (32-bit), VMware 413MB/VirtualBox 357MB
-* [box-cutter/fedora19-i386](https://vagrantcloud.com/box-cutter/fedora19-i386) - Fedora 19 (32-bit), VMware 398MB/VirtualBox 334MB
-* [box-cutter/fedora18-i386](https://vagrantcloud.com/box-cutter/fedora18-i386) - Fedora 18 (32-bit), VMware 356MB/VirtualBox 296MB
+* [box-cutter/fedora21-i386](https://vagrantcloud.com/box-cutter/fedora21-i386) - Fedora 21 (32-bit), VirtualBox 394MB
+* [box-cutter/fedora20-i386](https://vagrantcloud.com/box-cutter/fedora20-i386) - Fedora 20 (32-bit), VMware 420MB/VirtualBox 357MB/Parallels 413MB
+* [box-cutter/fedora19-i386](https://vagrantcloud.com/box-cutter/fedora19-i386) - Fedora 19 (32-bit), VMware 405MB/VirtualBox 336MB/Parallels 378MB
+* [box-cutter/fedora18-i386](https://vagrantcloud.com/box-cutter/fedora18-i386) - Fedora 18 (32-bit), VMware 375MB/VirtualBox 301MB/Parallels 346MB
 
 
 ## Building the Vagrant boxes
 
 To build all the boxes, you will need Packer and both VirtualBox, VMware
 Fusion, and Parallels Desktop for Mac installed.
+
+Parallels requires that the
+[Parallels Virtualization SDK for Mac](http://ww.parallels.com/downloads/desktop)
+be installed as an additional preqrequisite.
 
 A GNU Make `Makefile` drives the process via the following targets:
 
@@ -109,9 +115,11 @@ for the Fedora install ISO files.
 
 For Fedora, the ISO path variables are:
 
+* FEDORA21_X86_64
 * FEDORA20_X86_64
 * FEDORA19_X86_64
 * FEDORA18_X86_64
+* FEDORA21_I386
 * FEDORA20_I386
 * FEDORA19_I386
 * FEDORA18_I386
