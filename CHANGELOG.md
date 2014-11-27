@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6 (2014-11-26)
+
+* Upgrade VirtualBox Guest Additions to 4.3.20
+
 ## 1.0.5 (2014-11-5)
 
 * Upgrde VMware Tools to 9.8.4 for VMware Fusion 7.0.1
