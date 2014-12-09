@@ -10,8 +10,8 @@
     "ftp_proxy": "{{env `ftp_proxy`}}",
     "rsync_proxy": "{{env `rsync_proxy`}}",
     "no_proxy": "{{env `no_proxy`}}",
-    "iso_url": "http://mirror.cs.pitt.edu/fedora/linux/releases/test/21-Beta/Server/x86_64/iso/Fedora-Server-DVD-x86_64-21_Beta.iso",
-    "iso_checksum": "914e94fcad17eddaf1bb33d01f59f236bdc57e8357189855c4a5bf19890fd356"
+    "iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/21/Server/x86_64/iso/Fedora-Server-DVD-x86_64-21.iso",
+    "iso_checksum": "a6a2e83bb409d6b8ee3072ad07faac0a54d79c9ecbe3a40af91b773e2d843d8e"
   },
   "builders": [{
     "vm_name": "fedora21",
