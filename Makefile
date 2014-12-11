@@ -8,11 +8,11 @@ ifneq (0.5.0, $(word 1, $(sort 0.5.0 $(PACKER_VERSION))))
 $(error Packer version less than 0.5.x, please upgrade)
 endif
 
-FEDORA21_X86_64 ?= http://mirror.cs.pitt.edu/fedora/linux/releases/test/21-Beta/Server/x86_64/iso/Fedora-Server-DVD-x86_64-21_Beta.iso
+FEDORA21_X86_64 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/21/Server/x86_64/iso/Fedora-Server-DVD-x86_64-21.iso
 FEDORA20_X86_64 ?= http://mirrors.kernel.org/fedora/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-DVD.iso
 FEDORA19_X86_64 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/19/Fedora/x86_64/iso/Fedora-19-x86_64-DVD.iso
 FEDORA18_X86_64 ?= http://mirrors.kernel.org/fedora/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-DVD.iso
-FEDORA21_I386 ?= http://mirror.cs.pitt.edu/fedora/linux/releases/test/21-Beta/Server/i386/iso/Fedora-Server-DVD-i386-21_Beta.iso
+FEDORA21_I386 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/21/Server/i386/iso/Fedora-Server-DVD-i386-21.iso
 FEDORA20_I386 ?= http://mirrors.kernel.org/fedora/releases/20/Fedora/i386/iso/Fedora-20-i386-DVD.iso
 FEDORA19_I386 ?= http://mirrors.kernel.org/fedora/releases/19/Fedora/i386/iso/Fedora-19-i386-DVD.iso
 FEDORA18_I386 ?= http://mirrors.kernel.org/fedora/releases/18/Fedora/i386/iso/Fedora-18-i386-DVD.iso
