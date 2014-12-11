@@ -1,9 +1,9 @@
 winry_fedora := file:///Volumes/Storage/software/fedora
-FEDORA21_X86_64 ?= $(winry_fedora)/Fedora-Server-DVD-x86_64-21_Beta.iso
+FEDORA21_X86_64 ?= $(winry_fedora)/Fedora-Server-DVD-x86_64-21.iso
 FEDORA20_X86_64 ?= $(winry_fedora)/Fedora-20-x86_64-DVD.iso
 FEDORA19_X86_64 ?= $(winry_fedora)/Fedora-19-x86_64-DVD.iso
 FEDORA18_X86_64 ?= $(winry_fedora)/Fedora-18-x86_64-DVD.iso
-FEDORA21_I386 ?= $(winry_fedora)/Fedora-Server-DVD-i386-21_Beta.iso
+FEDORA21_I386 ?= $(winry_fedora)/Fedora-Server-DVD-i386-21.iso
 FEDORA20_I386 ?= $(winry_fedora)/Fedora-20-i386-DVD.iso
 FEDORA19_I386 ?= $(winry_fedora)/Fedora-19-i386-DVD.iso
 FEDORA18_I386 ?= $(winry_fedora)/Fedora-18-i386-DVD.iso
