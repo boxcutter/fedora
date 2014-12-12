@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.8 (2014-12-11)
+
+* Upgrade templates for Fedora 21 to the release version
+
 ## 1.0.7 (2014-12-04)
 
 * Upgrade VMware Tools to 9.9.0 for VMware Fusion 7.1.0
