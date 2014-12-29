@@ -46,11 +46,10 @@ endif
 TEMPLATE_FILENAMES := $(wildcard *.json)
 BOX_FILENAMES := $(TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
 VMWARE_TEMPLATE_FILENAMES = $(TEMPLATE_FILENAMES)
-VMWARE_TEMPLATE_FILENAMES = fedora18-i386.json fedora18.json fedora19-i386.json fedora19.json fedora20-i386.json fedora20.json
-VMWARE_BOX_FILENAMES := $(VMWARE_TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
-VMWARE_BOX_FILES := $(foreach box_filename, $(VMWARE_BOX_FILENAMES), box/vmware/$(box_filename))
+VMWARE_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), box/vmware/$(box_filename))
+VIRTUALBOX_TEMPLATE_FILENAMES = $(TEMPLATE_FILENAMES)
 VIRTUALBOX_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), box/virtualbox/$(box_filename))
-PARALLELS_TEMPLATE_FILENAMES = fedora18-i386.json fedora18.json fedora19-i386.json fedora19.json fedora20-i386.json fedora20.json
+PARALLELS_TEMPLATE_FILENAMES = 
 PARALLELS_BOX_FILENAMES := $(PARALLELS_TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
 PARALLELS_BOX_FILES := $(foreach box_filename, $(PARALLELS_BOX_FILENAMES), box/parallels/$(box_filename))
 BOX_FILES := $(VMWARE_BOX_FILES) $(VIRTUALBOX_BOX_FILES) $(PARALLELS_BOX_FILES)
@@ -214,6 +213,11 @@ $(VIRTUALBOX_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) 
 #	mkdir -p $(PARALLELS_BOX_DIR)
 #	packer build -only=parallels-iso $(PACKER_VARS) $<
 
+$(PARALLELS_BOX_DIR)/fedora21$(BOX_SUFFIX): fedora21.json $(SOURCES) http/ks.cfg
+	rm -rf $(PARALLELS_OUTPUT)
+	mkdir -p $(PARALLELS_BOX_DIR)
+	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_X86_64)" $<
+
 $(PARALLELS_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
 	rm -rf $(PARALLELS_OUTPUT)
 	mkdir -p $(PARALLELS_BOX_DIR)
@@ -228,6 +232,11 @@ $(PARALLELS_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fed
 	rm -rf $(PARALLELS_OUTPUT)
 	mkdir -p $(PARALLELS_BOX_DIR)
 	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
+
+$(PARALLELS_BOX_DIR)/fedora21-i386$(BOX_SUFFIX): fedora21-i386.json $(SOURCES) http/ks.cfg
+	rm -rf $(PARALLELS_OUTPUT)
+	mkdir -p $(PARALLELS_BOX_DIR)
+	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_I386)" $<
 
 $(PARALLELS_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
 	rm -rf $(PARALLELS_OUTPUT)
@@ -300,15 +309,16 @@ ssh-$(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX): $(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX)
 
 S3_STORAGE_CLASS ?= REDUCED_REDUNDANCY
 S3_ALLUSERS_ID ?= uri=http://acs.amazonaws.com/groups/global/AllUsers
+AWS_PROFILE ?= mischataylor
 
 s3cp-$(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): $(VMWARE_BOX_DIR)/%$(BOX_SUFFIX)
-	aws s3 cp $< $(VMWARE_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
+	aws --profile $(AWS_PROFILE) s3 cp $< $(VMWARE_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
 
 s3cp-$(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX): $(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX)
-	aws s3 cp $< $(VIRTUALBOX_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
+	aws --profile $(AWS_PROFILE) s3 cp $< $(VIRTUALBOX_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
 
 s3cp-$(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX): $(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX)
-	aws s3 cp $< $(PARALLELS_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
+	aws --profile $(AWS_PROFILE) s3 cp $< $(PARALLELS_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
 
 s3cp-vmware: $(addprefix s3cp-,$(VMWARE_BOX_FILES))
 s3cp-virtualbox: $(addprefix s3cp-,$(VIRTUALBOX_BOX_FILES))
