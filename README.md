@@ -10,27 +10,23 @@ using Packer.
 
 64-bit boxes:
 
-* [box-cutter/fedora21](https://vagrantcloud.com/box-cutter/fedora21) - Fedora 21 [Beta] (64-bit), VirtualBox 397MB
-* [box-cutter/fedora20](https://vagrantcloud.com/box-cutter/fedora20) - Fedora 20 (64-bit), VMware 429MB/VirtualBox 363MB/Parallels 416MB
-* [box-cutter/fedora19](https://vagrantcloud.com/box-cutter/fedora19) - Fedora 19 (64-bit), VMware 398MB/VirtualBox 342MB/Parallels 383MB
-* [box-cutter/fedora18](https://vagrantcloud.com/box-cutter/fedora18) - Fedora 18 (64-bit), VMware 366MB/VirtualBox 302MB/Parallels 346MB
+* [box-cutter/fedora21](https://vagrantcloud.com/box-cutter/fedora21) - Fedora 21 (64-bit), VMware 464MB/VirtualBox 406MB
+* [box-cutter/fedora20](https://vagrantcloud.com/box-cutter/fedora20) - Fedora 20 (64-bit), VMware 426MB/VirtualBox 367MB
+* [box-cutter/fedora19](https://vagrantcloud.com/box-cutter/fedora19) - Fedora 19 (64-bit), VMware 406MB/VirtualBox 357MB
+* [box-cutter/fedora18](https://vagrantcloud.com/box-cutter/fedora18) - Fedora 18 (64-bit), VMware 371MB/VirtualBox 306MB
 
 32-bit boxes:
 
-* [box-cutter/fedora21-i386](https://vagrantcloud.com/box-cutter/fedora21-i386) - Fedora 21 (32-bit), VirtualBox 394MB
-* [box-cutter/fedora20-i386](https://vagrantcloud.com/box-cutter/fedora20-i386) - Fedora 20 (32-bit), VMware 420MB/VirtualBox 357MB/Parallels 413MB
-* [box-cutter/fedora19-i386](https://vagrantcloud.com/box-cutter/fedora19-i386) - Fedora 19 (32-bit), VMware 405MB/VirtualBox 336MB/Parallels 378MB
-* [box-cutter/fedora18-i386](https://vagrantcloud.com/box-cutter/fedora18-i386) - Fedora 18 (32-bit), VMware 375MB/VirtualBox 301MB/Parallels 346MB
+* [box-cutter/fedora21-i386](https://vagrantcloud.com/box-cutter/fedora21-i386) - Fedora 21 (32-bit), VMware 460MB/VirtualBox 399MB
+* [box-cutter/fedora20-i386](https://vagrantcloud.com/box-cutter/fedora20-i386) - Fedora 20 (32-bit), VMware 421MB/VirtualBox 356MB
+* [box-cutter/fedora19-i386](https://vagrantcloud.com/box-cutter/fedora19-i386) - Fedora 19 (32-bit), VMware 404MB/VirtualBox 336MB
+* [box-cutter/fedora18-i386](https://vagrantcloud.com/box-cutter/fedora18-i386) - Fedora 18 (32-bit), VMware 360MB/VirtualBox 301MB
 
 
 ## Building the Vagrant boxes
 
-To build all the boxes, you will need Packer and both VirtualBox, VMware
-Fusion, and Parallels Desktop for Mac installed.
-
-Parallels requires that the
-[Parallels Virtualization SDK for Mac](http://ww.parallels.com/downloads/desktop)
-be installed as an additional preqrequisite.
+To build all the boxes, you will need VirtualBox and VMware
+installed.
 
 A GNU Make `Makefile` drives the process via the following targets:
 
