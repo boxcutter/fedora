@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.9 (2014-12-28)
+
+* Upgrade Parallels Tools to 10.1.2
+* Set default timezone to UTC
+
 ## 1.0.8 (2014-12-11)
 
 * Upgrade templates for Fedora 21 to the release version
