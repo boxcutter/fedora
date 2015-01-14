@@ -1,5 +1,4 @@
 # Packer templates for Fedora
-[![Build Status](https://box-cutter.ci.cloudbees.com/buildStatus/icon?job=fedora-vm)](https://box-cutter.ci.cloudbees.com/job/fedora-vm/)
 
 ### Overview
 
@@ -10,17 +9,17 @@ using Packer.
 
 64-bit boxes:
 
-* [box-cutter/fedora21](https://vagrantcloud.com/box-cutter/fedora21) - Fedora 21 (64-bit), VMware 464MB/VirtualBox 406MB
-* [box-cutter/fedora20](https://vagrantcloud.com/box-cutter/fedora20) - Fedora 20 (64-bit), VMware 426MB/VirtualBox 367MB
-* [box-cutter/fedora19](https://vagrantcloud.com/box-cutter/fedora19) - Fedora 19 (64-bit), VMware 406MB/VirtualBox 357MB
-* [box-cutter/fedora18](https://vagrantcloud.com/box-cutter/fedora18) - Fedora 18 (64-bit), VMware 371MB/VirtualBox 306MB
+* Fedora 21 (64-bit), VMware 464MB/VirtualBox 406MB
+* Fedora 20 (64-bit), VMware 426MB/VirtualBox 367MB
+* Fedora 19 (64-bit), VMware 406MB/VirtualBox 357MB
+* Fedora 18 (64-bit), VMware 371MB/VirtualBox 306MB
 
 32-bit boxes:
 
-* [box-cutter/fedora21-i386](https://vagrantcloud.com/box-cutter/fedora21-i386) - Fedora 21 (32-bit), VMware 460MB/VirtualBox 399MB
-* [box-cutter/fedora20-i386](https://vagrantcloud.com/box-cutter/fedora20-i386) - Fedora 20 (32-bit), VMware 421MB/VirtualBox 356MB
-* [box-cutter/fedora19-i386](https://vagrantcloud.com/box-cutter/fedora19-i386) - Fedora 19 (32-bit), VMware 404MB/VirtualBox 336MB
-* [box-cutter/fedora18-i386](https://vagrantcloud.com/box-cutter/fedora18-i386) - Fedora 18 (32-bit), VMware 360MB/VirtualBox 301MB
+* Fedora 21 (32-bit), VMware 460MB/VirtualBox 399MB
+* Fedora 20 (32-bit), VMware 421MB/VirtualBox 356MB
+* Fedora 19 (32-bit), VMware 404MB/VirtualBox 336MB
+* Fedora 18 (32-bit), VMware 360MB/VirtualBox 301MB
 
 
 ## Building the Vagrant boxes
