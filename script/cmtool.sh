@@ -68,7 +68,7 @@ install_puppet()
     REDHAT_MAJOR_VERSION=$(egrep -Eo 'release ([0-9][0-9.]*)' /etc/redhat-release | cut -f2 -d' ' | cut -f1 -d.)
 
     echo "==> Installing Puppet Labs repositories"
-    rpm -ipv "http://yum.puppetlabs.com/puppetlabs-release-el-${REDHAT_MAJOR_VERSION}.noarch.rpm"
+    rpm -ipv "http://yum.puppetlabs.com/puppetlabs-release-fedora-${REDHAT_MAJOR_VERSION}.noarch.rpm"
 
     if [[ ${CM_VERSION:-} == 'latest' ]]; then
         echo "==> Installing latest Puppet version"
