@@ -9,17 +9,17 @@ using Packer.
 
 64-bit boxes:
 
-* Fedora 21 (64-bit), VMware 464MB/VirtualBox 406MB
-* Fedora 20 (64-bit), VMware 426MB/VirtualBox 367MB
-* Fedora 19 (64-bit), VMware 406MB/VirtualBox 357MB
-* Fedora 18 (64-bit), VMware 371MB/VirtualBox 306MB
+* [Fedora 21 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21), VMware 466MB/VirtualBox 405MB
+* [Fedora 20 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20), VMware 428MB/VirtualBox 362MB
+* [Fedora 19 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19), VMware 406MB/VirtualBox 339MB
+* [Fedora 18 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18), VMware 366MB/VirtualBox 301MB
 
 32-bit boxes:
 
-* Fedora 21 (32-bit), VMware 460MB/VirtualBox 399MB
-* Fedora 20 (32-bit), VMware 421MB/VirtualBox 356MB
-* Fedora 19 (32-bit), VMware 404MB/VirtualBox 336MB
-* Fedora 18 (32-bit), VMware 360MB/VirtualBox 301MB
+* [Fedora 21 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21-i386), VMware 460MB/VirtualBox 405MB
+* [Fedora 20 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20-i386), VMware 422MB/VirtualBox 359MB
+* [Fedora 19 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19-i386), VMware 404MB/VirtualBox 339MB
+* [Fedora 18 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18-i386), VMware 360MB/VirtualBox 300MB
 
 
 ## Building the Vagrant boxes
