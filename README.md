@@ -123,3 +123,9 @@ This override is commonly used to speed up Packer builds by
 pointing at pre-downloaded ISOs instead of using the default
 download Internet URLs:
 `FEDORA20_X86_64 := file:///Volumes/Fedora-20-x86_64-DVD.iso`
+
+### Acknowledgments
+
+[SmartyStreets](http://www.smartystreets.com) is providing basebox hosting for the box-cutter project.
+
+![Powered By SmartyStreets](https://smartystreets.com/resources/images/smartystreets-flat.png)
