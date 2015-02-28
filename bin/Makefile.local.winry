@@ -1,40 +1,10 @@
-winry_fedora := file:///Volumes/Thunder/software/fedora
-FEDORA21_X86_64 ?= $(winry_fedora)/Fedora-Server-DVD-x86_64-21.iso
-FEDORA20_X86_64 ?= $(winry_fedora)/Fedora-20-x86_64-DVD.iso
-FEDORA19_X86_64 ?= $(winry_fedora)/Fedora-19-x86_64-DVD.iso
-FEDORA18_X86_64 ?= $(winry_fedora)/Fedora-18-x86_64-DVD.iso
-FEDORA21_I386 ?= $(winry_fedora)/Fedora-Server-DVD-i386-21.iso
-FEDORA20_I386 ?= $(winry_fedora)/Fedora-20-i386-DVD.iso
-FEDORA19_I386 ?= $(winry_fedora)/Fedora-19-i386-DVD.iso
-FEDORA18_I386 ?= $(winry_fedora)/Fedora-18-i386-DVD.iso
+ISO_PATH := file:///Volumes/Thunder/software/fedora
 
 VIRTUALBOX_VERSION := $(shell virtualbox --help | head -n 1 | awk '{print $$NF}')
 PARALLELS_VERSION := $(shell prlctl --version | awk '{print $$3}')
-VMWARE_S3_BUCKET := s3://box-cutter/fedora/vmware9.8.4/
-VIRTUALBOX_S3_BUCKET := s3://box-cutter/fedora/virtualbox$(VIRTUALBOX_VERSION)/
-PARALLELS_S3_BUCKET := s3://box-cutter/fedora/parallels$(PARALLELS_VERSION)/
-S3_GRANT_ID := id=395536e070ed40ca64c173c16c60677d035e12dabd06298ff923f61e20cf2504
-AWS_PROFILE = mischataylor
-
-VAGRANTCLOUD_VIRTUALBOX_TARGETS = $(basename $(VIRTUALBOX_TEMPLATE_FILENAMES))
-
-VAGRANTCLOUD_VMWARE_TARGETS = $(basename $(VMWARE_TEMPLATE_FILENAMES))
-
-VAGRANTCLOUD_PARALLELS_TARGETS = $(basename $(PARALLELS_TEMPLATE_FILENAMES))
-
-test-vagrantcloud: test-vagrantcloud-vmware test-vagrantcloud-virtualbox test-vagrantcloud-parallels
-
-test-vagrantcloud-vmware:
-	@for shortcut_target in $(VAGRANTCLOUD_VMWARE_TARGETS) ; do \
-		bin/test-vagrantcloud-box.sh boxcutter/$$shortcut_target vmware_fusion vmware_desktop $(CURRENT_DIR)/test/*_spec.rb || exit; \
-	done
-
-test-vagrantcloud-virtualbox:
-	@for shortcut_target in $(VAGRANTCLOUD_VIRTUALBOX_TARGETS) ; do \
-		bin/test-vagrantcloud-box.sh boxcutter/$$shortcut_target virtualbox virtualbox $(CURRENT_DIR)/test/*_spec.rb || exit; \
-	done
-
-test-vagrantcloud-parallels:
-	@for shortcut_target in $(VAGRANTCLOUD_PARALLELS_TARGETS) ; do \
-		bin/test-vagrantcloud-box.sh boxcutter/$$shortcut_target parallels parallels $(CURRENT_DIR)/test/*_spec.rb || exit; \
-	done
+VMWARE_VERSION := 9.9.2
+VMWARE_S3_BUCKET := s3://smartystreets-boxcutter/fedora/vmware$(VMWARE_VERSION)/
+VIRTUALBOX_S3_BUCKET := s3://smartystreets-boxcutter/fedora/virtualbox$(VIRTUALBOX_VERSION)/
+PARALLELS_S3_BUCKET := s3://smartystreets-boxcutter/fedora/parallels$(PARALLELS_VERSION)/
+S3_GRANT_ID := id=120985f7542bdcc1f07bb3e2fc74f0e53a03f9a05e4267a3c8d38d27933c7a94
+AWS_PROFILE = smartystreets
