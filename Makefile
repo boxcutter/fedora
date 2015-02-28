@@ -3,19 +3,7 @@ ifneq ("$(wildcard Makefile.local)", "")
 	include Makefile.local
 endif
 
-PACKER_VERSION = $(shell packer --version | sed 's/^.* //g' | sed 's/^.//')
-ifneq (0.5.0, $(word 1, $(sort 0.5.0 $(PACKER_VERSION))))
-$(error Packer version less than 0.5.x, please upgrade)
-endif
-
-FEDORA21_X86_64 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/21/Server/x86_64/iso/Fedora-Server-DVD-x86_64-21.iso
-FEDORA20_X86_64 ?= http://mirrors.kernel.org/fedora/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-DVD.iso
-FEDORA19_X86_64 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/19/Fedora/x86_64/iso/Fedora-19-x86_64-DVD.iso
-FEDORA18_X86_64 ?= http://mirrors.kernel.org/fedora/releases/18/Fedora/x86_64/iso/Fedora-18-x86_64-DVD.iso
-FEDORA21_I386 ?= http://download.fedoraproject.org/pub/fedora/linux/releases/21/Server/i386/iso/Fedora-Server-DVD-i386-21.iso
-FEDORA20_I386 ?= http://mirrors.kernel.org/fedora/releases/20/Fedora/i386/iso/Fedora-20-i386-DVD.iso
-FEDORA19_I386 ?= http://mirrors.kernel.org/fedora/releases/19/Fedora/i386/iso/Fedora-19-i386-DVD.iso
-FEDORA18_I386 ?= http://mirrors.kernel.org/fedora/releases/18/Fedora/i386/iso/Fedora-18-i386-DVD.iso
+PACKER ?= packer
 
 # Possible values for CM: (nocm | chef | chefdk | salt | puppet)
 CM ?= nocm
@@ -27,21 +15,28 @@ ifndef CM_VERSION
 	endif
 endif
 BOX_VERSION ?= $(shell cat VERSION)
+DISK_SIZE ?= 10140
+SSH_USERNAME ?= vagrant
+SSH_PASSWORD ?= vagrant
+INSTALL_VAGRANT_KEY ?= true
+ISO_PATH ?= iso
 ifeq ($(CM),nocm)
 	BOX_SUFFIX := -$(CM)-$(BOX_VERSION).box
 else
 	BOX_SUFFIX := -$(CM)$(CM_VERSION)-$(BOX_VERSION).box
 endif
+HEADLESS ?= false
+UPDATE ?= false
 # Packer does not allow empty variables, so only pass variables that are defined
-PACKER_VARS_LIST = 'cm=$(CM)' 'headless=$(HEADLESS)' 'update=$(UPDATE)' 'version=$(BOX_VERSION)'
+PACKER_VARS_LIST = 'cm=$(CM)' 'headless=$(HEADLESS)' 'update=$(UPDATE)' 'version=$(BOX_VERSION)' 'ssh_username=$(SSH_USERNAME)' 'ssh_password=$(SSH_PASSWORD)' 'install_vagrant_key=$(INSTALL_VAGRANT_KEY)' 'disk_size=${DISK_SIZE}'  'iso_path=$(ISO_PATH)'
 ifdef CM_VERSION
 	PACKER_VARS_LIST += 'cm_version=$(CM_VERSION)'
 endif
 PACKER_VARS := $(addprefix -var , $(PACKER_VARS_LIST))
 ifdef PACKER_DEBUG
-	PACKER := PACKER_LOG=1 packer --debug
+	PACKER_CMD := PACKER_LOG=1 $(PACKER) --debug
 else
-	PACKER := packer
+	PACKER_CMD := $(PACKER)
 endif
 TEMPLATE_FILENAMES := $(wildcard *.json)
 BOX_FILENAMES := $(TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
@@ -112,147 +107,20 @@ SHORTCUT_TARGETS := $(basename $(TEMPLATE_FILENAMES))
 $(foreach i,$(SHORTCUT_TARGETS),$(eval $(call SHORTCUT,$(i))))
 ###############################################################################
 
-# Generic rule - not used currently
-#$(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): %.json
-#	cd $(dir $<)
-#	rm -rf output-vmware-iso
-#	mkdir -p $(VMWARE_BOX_DIR)
-#	packer build -only=vmware-iso $(PACKER_VARS) $<
-
-$(VMWARE_BOX_DIR)/fedora21$(BOX_SUFFIX): fedora21.json $(SOURCES) http/ks.cfg
+$(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): %.json $(SOURCES)
 	rm -rf $(VMWARE_OUTPUT)
 	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_X86_64)" $<
+	$(PACKER_CMD) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) $<
 
-$(VMWARE_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
-	rm -rf $(VMWARE_OUTPUT)
-	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_X86_64)" $<
-
-$(VMWARE_BOX_DIR)/fedora19$(BOX_SUFFIX): fedora19.json $(SOURCES) http/ks.cfg
-	rm -rf $(VMWARE_OUTPUT)
-	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_X86_64)" $<
-
-$(VMWARE_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fedora18.cfg
-	rm -rf $(VMWARE_OUTPUT)
-	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
-
-$(VMWARE_BOX_DIR)/fedora21-i386$(BOX_SUFFIX): fedora21-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(VMWARE_OUTPUT)
-	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_I386)" $<
-
-$(VMWARE_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(VMWARE_OUTPUT)
-	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_I386)" $<
-
-$(VMWARE_BOX_DIR)/fedora19-i386$(BOX_SUFFIX): fedora19-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(VMWARE_OUTPUT)
-	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_I386)" $<
-
-$(VMWARE_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) http/ks-fedora18.cfg
-	rm -rf $(VMWARE_OUTPUT)
-	mkdir -p $(VMWARE_BOX_DIR)
-	$(PACKER) build -only=$(VMWARE_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_I386)" $<
-
-# Generic rule - not used currently
-#$(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX): %.json
-#	cd $(dir $<)
-#	rm -rf output-virtualbox-iso
-#	mkdir -p $(VIRTUALBOX_BOX_DIR)
-#	packer build -only=virtualbox-iso $(PACKER_VARS) $<
-
-$(VIRTUALBOX_BOX_DIR)/fedora21$(BOX_SUFFIX): fedora21.json $(SOURCES) http/ks.cfg
+$(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX): %.json $(SOURCES)
 	rm -rf $(VIRTUALBOX_OUTPUT)
 	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_X86_64)" $<
+	$(PACKER_CMD) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) $<
 
-$(VIRTUALBOX_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
-	rm -rf $(VIRTUALBOX_OUTPUT)
-	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_X86_64)" $<
-
-$(VIRTUALBOX_BOX_DIR)/fedora19$(BOX_SUFFIX): fedora19.json $(SOURCES) http/ks.cfg
-	rm -rf $(VIRTUALBOX_OUTPUT)
-	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_X86_64)" $<
-
-$(VIRTUALBOX_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fedora18.cfg
-	rm -rf $(VIRTUALBOX_OUTPUT)
-	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
-
-$(VIRTUALBOX_BOX_DIR)/fedora21-i386$(BOX_SUFFIX): fedora21-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(VIRTUALBOX_OUTPUT)
-	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_I386)" $<
-
-$(VIRTUALBOX_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(VIRTUALBOX_OUTPUT)
-	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_I386)" $<
-
-$(VIRTUALBOX_BOX_DIR)/fedora19-i386$(BOX_SUFFIX): fedora19-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(VIRTUALBOX_OUTPUT)
-	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_I386)" $<
-
-$(VIRTUALBOX_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) http/ks-fedora18.cfg
-	rm -rf $(VIRTUALBOX_OUTPUT)
-	mkdir -p $(VIRTUALBOX_BOX_DIR)
-	$(PACKER) build -only=$(VIRTUALBOX_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_I386)" $<
-
-# Generic rule - not used currently
-#$(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX): %.json
-#	cd $(dir $<)
-#	rm -rf output-parallels-iso
-#	mkdir -p $(PARALLELS_BOX_DIR)
-#	packer build -only=parallels-iso $(PACKER_VARS) $<
-
-$(PARALLELS_BOX_DIR)/fedora21$(BOX_SUFFIX): fedora21.json $(SOURCES) http/ks.cfg
+$(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX): %.json $(SOURCES)
 	rm -rf $(PARALLELS_OUTPUT)
 	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_X86_64)" $<
-
-$(PARALLELS_BOX_DIR)/fedora20$(BOX_SUFFIX): fedora20.json $(SOURCES) http/ks.cfg
-	rm -rf $(PARALLELS_OUTPUT)
-	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_X86_64)" $<
-
-$(PARALLELS_BOX_DIR)/fedora19$(BOX_SUFFIX): fedora19.json $(SOURCES) http/ks.cfg
-	rm -rf $(PARALLELS_OUTPUT)
-	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_X86_64)" $<
-
-$(PARALLELS_BOX_DIR)/fedora18$(BOX_SUFFIX): fedora18.json $(SOURCES) http/ks-fedora18.cfg
-	rm -rf $(PARALLELS_OUTPUT)
-	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_X86_64)" $<
-
-$(PARALLELS_BOX_DIR)/fedora21-i386$(BOX_SUFFIX): fedora21-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(PARALLELS_OUTPUT)
-	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA21_I386)" $<
-
-$(PARALLELS_BOX_DIR)/fedora20-i386$(BOX_SUFFIX): fedora20-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(PARALLELS_OUTPUT)
-	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA20_I386)" $<
-
-$(PARALLELS_BOX_DIR)/fedora19-i386$(BOX_SUFFIX): fedora19-i386.json $(SOURCES) http/ks.cfg
-	rm -rf $(PARALLELS_OUTPUT)
-	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA19_I386)" $<
-
-$(PARALLELS_BOX_DIR)/fedora18-i386$(BOX_SUFFIX): fedora18-i386.json $(SOURCES) http/ks-fedora18.cfg
-	rm -rf $(PARALLELS_OUTPUT)
-	mkdir -p $(PARALLELS_BOX_DIR)
-	packer build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) -var "iso_url=$(FEDORA18_I386)" $<
-
+	$(PACKER_CMD) build -only=$(PARALLELS_BUILDER) $(PACKER_VARS) $<
 
 list:
 	@echo "Prepend 'vmware/', 'virtualbox/', or 'parallels/' to build only one target platform:"
@@ -298,6 +166,11 @@ test-$(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX): $(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX)
 test-$(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX): $(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX)
 	bin/test-box.sh $< parallels parallels $(CURRENT_DIR)/test/*_spec.rb
 
+test: test-vmware test-virtualbox test-parallels
+test-vmware: $(addprefix test-,$(VMWARE_BOX_FILES))
+test-virtualbox: $(addprefix test-,$(VIRTUALBOX_BOX_FILES))
+test-parallels: $(addprefix test-,$(PARALLELS_BOX_FILES))
+
 ssh-$(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): $(VMWARE_BOX_DIR)/%$(BOX_SUFFIX)
 	bin/ssh-box.sh $< vmware_desktop vmware_fusion $(CURRENT_DIR)/test/*_spec.rb
 
@@ -312,14 +185,50 @@ S3_ALLUSERS_ID ?= uri=http://acs.amazonaws.com/groups/global/AllUsers
 AWS_PROFILE ?= mischataylor
 
 s3cp-$(VMWARE_BOX_DIR)/%$(BOX_SUFFIX): $(VMWARE_BOX_DIR)/%$(BOX_SUFFIX)
-	aws --profile $(AWS_PROFILE) s3 cp $< $(VMWARE_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
+	@for i in {1..20}; do \
+		aws --profile $(AWS_PROFILE) s3 cp $< $(VMWARE_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID) && break || sleep 62; \
+        done
 
 s3cp-$(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX): $(VIRTUALBOX_BOX_DIR)/%$(BOX_SUFFIX)
-	aws --profile $(AWS_PROFILE) s3 cp $< $(VIRTUALBOX_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
+	@for i in {1..20}; do \
+		aws --profile $(AWS_PROFILE) s3 cp $< $(VIRTUALBOX_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID) && break || sleep 62; \
+	done
 
 s3cp-$(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX): $(PARALLELS_BOX_DIR)/%$(BOX_SUFFIX)
-	aws --profile $(AWS_PROFILE) s3 cp $< $(PARALLELS_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID)
+	@for i in {1..20}; do \
+		aws --profile $(AWS_PROFILE) s3 cp $< $(PARALLELS_S3_BUCKET) --storage-class $(S3_STORAGE_CLASS) --grants full=$(S3_GRANT_ID) read=$(S3_ALLUSERS_ID) && break || sleep 62; \
+	done
 
 s3cp-vmware: $(addprefix s3cp-,$(VMWARE_BOX_FILES))
 s3cp-virtualbox: $(addprefix s3cp-,$(VIRTUALBOX_BOX_FILES))
 s3cp-parallels: $(addprefix s3cp-,$(PARALLELS_BOX_FILES))
+
+ATLAS_NAME ?= boxcutter
+
+test-atlas: test-atlas-vmware test-atlas-virtualbox test-atlas-parallels
+test-atlas-vmware: $(addprefix test-atlas-,$(VMWARE_BOX_FILES))
+test-atlas-virtualbox: $(addprefix test-atlas-,$(VIRTUALBOX_BOX_FILES))
+test-atlas-parallels: $(addprefix test-atlas-,$(PARALLELS_BOX_FILES))
+
+test-atlas-$(VMWARE_BOX_DIR)%$(BOX_SUFFIX):
+	bin/test-vagrantcloud-box.sh boxcutter$* vmware_fusion vmware_desktop $(CURRENT_DIR)/test/*_spec.rb
+	bin/test-vagrantcloud-box.sh box-cutter$* vmware_fusion vmware_desktop $(CURRENT_DIR)/test/*_spec.rb
+
+test-atlas-$(VIRTUALBOX_BOX_DIR)%$(BOX_SUFFIX):
+	bin/test-vagrantcloud-box.sh boxcutter$* virtualbox virtualbox $(CURRENT_DIR)/test/*_spec.rb
+	bin/test-vagrantcloud-box.sh box-cutter$* virtualbox virtualbox $(CURRENT_DIR)/test/*_spec.rb
+
+test-atlas-$(PARALLELS_BOX_DIR)%$(BOX_SUFFIX):
+	bin/test-vagrantcloud-box.sh boxcutter$* parallels parallels $(CURRENT_DIR)/test/*_spec.rb
+	bin/test-vagrantcloud-box.sh box-cutter$* parallels parallels $(CURRENT_DIR)/test/*_spec.rb
+
+test-atlas: test-atlas-vmware test-atlas-virtualbox test-atlas-parallels
+test-atlas-vmware: $(addprefix test-atlas-,$(VMWARE_BOX_FILES))
+test-atlas-virtualbox: $(addprefix test-atlas-,$(VIRTUALBOX_BOX_FILES))
+test-atlas-parallels: $(addprefix test-atlas-,$(PARALLELS_BOX_FILES))
+
+register-atlas: $(addprefix register-atlas-,$(basename $(TEMPLATE_FILENAMES)))
+
+register-atlas/%$(BOX_SUFFIX):
+	bin/register_atlas.sh $* $(BOX_SUFFIX) $(BOX_VERSION)
+	bin/register_atlas_box_cutter.sh $* $(BOX_SUFFIX) $(BOX_VERSION)
