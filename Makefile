@@ -41,8 +41,9 @@ endif
 BUILDER_TYPES ?= vmware virtualbox parallels
 TEMPLATE_FILENAMES := $(wildcard *.json)
 BOX_FILENAMES := $(TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
-VMWARE_TEMPLATE_FILENAMES = $(TEMPLATE_FILENAMES)
-VMWARE_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), box/vmware/$(box_filename))
+VMWARE_TEMPLATE_FILENAMES = $(filter-out fedora21-i386.json fedora21.json,$(TEMPLATE_FILENAMES))
+VMWARE_BOX_FILENAMES := $(VMWARE_TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
+VMWARE_BOX_FILES := $(foreach box_filename, $(VMWARE_BOX_FILENAMES), box/vmware/$(box_filename))
 VIRTUALBOX_TEMPLATE_FILENAMES = $(TEMPLATE_FILENAMES)
 VIRTUALBOX_BOX_FILES := $(foreach box_filename, $(BOX_FILENAMES), box/virtualbox/$(box_filename))
 PARALLELS_TEMPLATE_FILENAMES = $(filter-out fedora21-i386.json fedora21.json,$(TEMPLATE_FILENAMES))
