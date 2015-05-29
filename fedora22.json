@@ -11,7 +11,7 @@
         "floppy/vmware9.k3.9.vmhgfs.patch",
         "floppy/vmhgfs-d_count-kernel-3.11-tools-9.6.0.patch"
       ],
-      "guest_os_type": "fedora",
+      "guest_os_type": "fedora-64",
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
       "iso_checksum": "{{ user `iso_checksum` }}",
@@ -26,7 +26,7 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "linux",
       "type": "vmware-iso",
-      "vm_name": "fedora21-i386",
+      "vm_name": "fedora22",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "memsize": "512",
@@ -39,7 +39,7 @@
       ],
       "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "guest_os_type": "Fedora",
+      "guest_os_type": "Fedora_64",
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
       "iso_checksum": "{{ user `iso_checksum` }}",
@@ -68,7 +68,7 @@
         ]
       ],
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "fedora21-i386"
+      "vm_name": "fedora22"
     },
     {
       "boot_command": [
@@ -104,13 +104,13 @@
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
       "type": "parallels-iso",
-      "vm_name": "fedora21-i386"
+      "vm_name": "fedora22"
     }
   ],
   "post-processors": [
     {
       "keep_input_artifact": false,
-      "output": "box/{{.Provider}}/fedora21-i386-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box",
+      "output": "box/{{.Provider}}/fedora22-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box",
       "type": "vagrant"
     }
   ],
@@ -150,10 +150,10 @@
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
     "install_vagrant_key": true,
-    "iso_checksum": "85e50a8a938996522bf1605b3578a2d6680362c1aa963d0560d59c2e4fc795ef",
-    "iso_name": "Fedora-Server-DVD-i386-21.iso",
+    "iso_checksum": "b2acfa7c7c6b5d2f51d3337600c2e52eeaa1a1084991181c28ca30343e52e0df",
+    "iso_name": "Fedora-Server-DVD-x86_64-22.iso",
     "iso_path": "iso",
-    "iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/21/Server/i386/iso/Fedora-Server-DVD-i386-21.iso",
+    "iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/22/Server/x86_64/iso/Fedora-Server-DVD-x86_64-22.iso",
     "no_proxy": "{{env `no_proxy`}}",
     "rsync_proxy": "{{env `rsync_proxy`}}",
     "ssh_password": "vagrant",
