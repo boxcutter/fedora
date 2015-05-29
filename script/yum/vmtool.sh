@@ -129,4 +129,4 @@ if [[ $PACKER_BUILDER_TYPE =~ parallels ]]; then
 fi
 
 echo "==> Removing packages needed for building guest tools"
-echo yum -y remove gcc cpp kernel-devel kernel-headers perl
+yum -y remove gcc cpp kernel-devel kernel-headers perl

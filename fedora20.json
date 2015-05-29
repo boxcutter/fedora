@@ -132,11 +132,11 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "script/sshd.sh",
-        "script/update.sh",
+        "script/yum/update.sh",
         "script/vagrant.sh",
-        "script/vmtool.sh",
-        "script/cmtool.sh",
-        "script/cleanup.sh"
+        "script/yum/vmtool.sh",
+        "script/yum/cmtool.sh",
+        "script/yum/cleanup.sh"
       ],
       "type": "shell"
     }
