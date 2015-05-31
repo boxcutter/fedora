@@ -5,11 +5,15 @@ if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
 
     # Uninstall fuse to fake out the vmware install so it won't try to
     # enable the VMware blocking filesystem
-    yum erase -y fuse
+    ${PKG_MGR} erase -y fuse
 
     # Assume that we've installed all the prerequisites:
     # kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl
     # from the install media via ks.cfg
+    # Except on Fedora 22 (which uses dnf)
+    if [ "${PKG_MGR}" == "dnf" ]; then
+        ${PKG_MGR} -y install kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl
+    fi
 
     cd /tmp
     mkdir -p /mnt/cdrom
@@ -105,6 +109,10 @@ if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
     # Assume that we've installed all the prerequisites:
     # kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl
     # from the install media via ks.cfg
+    # Except on Fedora 22 (which uses dnf)
+    if [ "${PKG_MGR}" == "dnf" ]; then
+        ${PKG_MGR} -y install kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl
+    fi
 
     VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
     mount -o loop /home/vagrant/VBoxGuestAdditions_${VBOX_VERSION}.iso /mnt
@@ -129,4 +137,4 @@ if [[ $PACKER_BUILDER_TYPE =~ parallels ]]; then
 fi
 
 echo "==> Removing packages needed for building guest tools"
-echo yum -y remove gcc cpp kernel-devel kernel-headers perl
+echo ${PKG_MGR} -y remove gcc cpp kernel-devel kernel-headers perl

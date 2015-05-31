@@ -2,7 +2,7 @@
   "builders": [
     {
       "boot_command": [
-        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks.cfg<enter><enter>"
+        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks-fedora22.cfg<enter><enter>"
       ],
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
@@ -26,7 +26,7 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "linux",
       "type": "vmware-iso",
-      "vm_name": "fedora21-i386",
+      "vm_name": "fedora22-i386",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "memsize": "512",
@@ -35,7 +35,7 @@
     },
     {
       "boot_command": [
-        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks.cfg<enter><enter>"
+        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks-fedora22.cfg<enter><enter>"
       ],
       "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
@@ -68,11 +68,11 @@
         ]
       ],
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "fedora21-i386"
+      "vm_name": "fedora22-i386"
     },
     {
       "boot_command": [
-        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks.cfg<enter><enter>"
+        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ks-fedora22.cfg<enter><enter>"
       ],
       "disk_size": "{{user `disk_size`}}",
       "guest_os_type": "fedora-core",
@@ -104,13 +104,13 @@
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
       "type": "parallels-iso",
-      "vm_name": "fedora21-i386"
+      "vm_name": "fedora22-i386"
     }
   ],
   "post-processors": [
     {
       "keep_input_artifact": false,
-      "output": "box/{{.Provider}}/fedora21-i386-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box",
+      "output": "box/{{.Provider}}/fedora22-i386-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box",
       "type": "vagrant"
     }
   ],
@@ -121,7 +121,6 @@
         "CM_VERSION={{user `cm_version`}}",
         "UPDATE={{user `update`}}",
         "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
-        "PKG_MGR={{user `pkg_mgr`}}",
         "SSH_USERNAME={{user `ssh_username`}}",
         "SSH_PASSWORD={{user `ssh_password`}}",
         "http_proxy={{user `http_proxy`}}",
@@ -151,12 +150,12 @@
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
     "install_vagrant_key": true,
-    "iso_checksum": "85e50a8a938996522bf1605b3578a2d6680362c1aa963d0560d59c2e4fc795ef",
-    "iso_name": "Fedora-Server-DVD-i386-21.iso",
+    "iso_checksum": "5e3dfdff30667f3339d8b4e6ac0651c2e00c9417987848bef772cb92dbc823a5",
+    "iso_name": "Fedora-Server-DVD-i386-22.iso",
     "iso_path": "iso",
-    "iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/21/Server/i386/iso/Fedora-Server-DVD-i386-21.iso",
+    "iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/22/Server/i386/iso/Fedora-Server-DVD-i386-22.iso",
     "no_proxy": "{{env `no_proxy`}}",
-    "pkg_mgr": "yum",
+    "pkg_mgr": "dnf",
     "rsync_proxy": "{{env `rsync_proxy`}}",
     "ssh_password": "vagrant",
     "ssh_username": "vagrant",
