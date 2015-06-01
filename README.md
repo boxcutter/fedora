@@ -9,17 +9,19 @@ using Packer.
 
 64-bit boxes:
 
-* [Fedora 21 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21), VMware 466MB/VirtualBox 405MB
-* [Fedora 20 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20), VMware 428MB/VirtualBox 362MB
-* [Fedora 19 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19), VMware 406MB/VirtualBox 339MB
-* [Fedora 18 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18), VMware 366MB/VirtualBox 301MB
+* [Fedora 22 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora22)
+* [Fedora 21 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21)
+* [Fedora 20 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20)
+* [Fedora 19 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19)
+* [Fedora 18 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18)
 
 32-bit boxes:
 
-* [Fedora 21 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21-i386), VMware 460MB/VirtualBox 405MB
-* [Fedora 20 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20-i386), VMware 422MB/VirtualBox 359MB
-* [Fedora 19 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19-i386), VMware 404MB/VirtualBox 339MB
-* [Fedora 18 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18-i386), VMware 360MB/VirtualBox 300MB
+* [Fedora 22 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora22-i386)
+* [Fedora 21 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21-i386)
+* [Fedora 20 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20-i386)
+* [Fedora 19 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19-i386)
+* [Fedora 18 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18-i386)
 
 
 ## Building the Vagrant boxes
@@ -56,12 +58,14 @@ The tests are written in [Serverspec](http://serverspec.org) and require the
 The `Makefile` has individual targets for each box type with the prefix
 `test-*` should you wish to run tests individually for each box.
 
+    make test-virtualbox/fedora22
+    
 Similarly there are targets with the prefix `ssh-*` for registering a
 newly-built box with vagrant and for logging in using just one command to
 do exploratory testing.  For example, to do exploratory testing
 on the VirtualBox training environmnet, run the following command:
 
-    make ssh-box/virtualbox/fedora20-nocm.box
+    make ssh-virtualbox/fedora22
 
 Upon logout `make ssh-*` will automatically de-register the box as well.
 
@@ -105,24 +109,13 @@ the latest OS updates will be applied.
 The variable `HEADLESS` can be set to run Packer in headless mode.
 Set `HEADLESS := true`, the default is false.
 
-Another use for `Makefile.local` is to override the default locations
-for the Fedora install ISO files.
+The variable `PACKER` can be used to set the path to the packer binary.
+The default is `packer`.
 
-For Fedora, the ISO path variables are:
-
-* FEDORA21_X86_64
-* FEDORA20_X86_64
-* FEDORA19_X86_64
-* FEDORA18_X86_64
-* FEDORA21_I386
-* FEDORA20_I386
-* FEDORA19_I386
-* FEDORA18_I386
-
-This override is commonly used to speed up Packer builds by
-pointing at pre-downloaded ISOs instead of using the default
-download Internet URLs:
-`FEDORA20_X86_64 := file:///Volumes/Fedora-20-x86_64-DVD.iso`
+The variable `ISO_PATH` can be used to set the path to a directory with
+OS install images.  This override is commonly used to speed up Packer
+builds by pointing at pre-downloaded ISOs instead of using the default
+download Internet URLs.
 
 ### Acknowledgments
 
