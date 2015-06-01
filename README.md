@@ -17,7 +17,6 @@ using Packer.
 
 32-bit boxes:
 
-* [Fedora 22 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora22-i386)
 * [Fedora 21 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21-i386)
 * [Fedora 20 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20-i386)
 * [Fedora 19 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19-i386)
