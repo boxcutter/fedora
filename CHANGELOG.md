@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.14 (2015-05-31)
+
+* Add templates for Fedora 22
+* Upgrade VirtualBox Guest Additions to 4.3.28
+* Upgrade Parallels Tools to 10.2.1
+
+## 1.0.13 (2015-05-18)
+
+* Upgrade VirtualBox Guest Additions to 4.3.26 
+
 ## 1.0.12 (2015-03-17)
 
 * Upgrade VirtualBox Guest Additions to 4.3.24
