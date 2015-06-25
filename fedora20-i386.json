@@ -150,7 +150,7 @@
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "install_vagrant_key": true,
+    "install_vagrant_key": "true",
     "iso_checksum": "284ea30ddd50db1b30cd5cd9fae7495dad8714ef1e4428d69a8c8ce80e03b6a9",
     "iso_name": "Fedora-20-i386-DVD.iso",
     "iso_path": "iso",

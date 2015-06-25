@@ -149,7 +149,7 @@
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "install_vagrant_key": true,
+    "install_vagrant_key": "true",
     "iso_checksum": "a22e6ab7b0e5e93397e4a1d8d994693d0afb9ad46b1f47a4fe10bfbbc2e7f354",
     "iso_name": "Fedora-18-i386-DVD.iso",
     "iso_path": "iso",

@@ -149,7 +149,7 @@
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "install_vagrant_key": true,
+    "install_vagrant_key": "true",
     "iso_checksum": "6e7e263e607cfcadc90ea2ef5668aa3945d9eca596485a7a1f8a9f2478cc7084",
     "iso_name": "Fedora-19-x86_64-DVD.iso",
     "iso_path": "iso",

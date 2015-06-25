@@ -150,7 +150,7 @@
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "install_vagrant_key": true,
+    "install_vagrant_key": "true",
     "iso_checksum": "85e50a8a938996522bf1605b3578a2d6680362c1aa963d0560d59c2e4fc795ef",
     "iso_name": "Fedora-Server-DVD-i386-21.iso",
     "iso_path": "iso",
