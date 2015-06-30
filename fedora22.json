@@ -119,6 +119,7 @@
       "environment_vars": [
         "CM={{user `cm`}}",
         "CM_VERSION={{user `cm_version`}}",
+        "DISABLE_CNDN={{user `disable_cndn`}}",
         "UPDATE={{user `update`}}",
         "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
         "PKG_MGR={{user `pkg_mgr`}}",
@@ -145,6 +146,7 @@
   "variables": {
     "cm": "nocm",
     "cm_version": "",
+    "disable_cndn": "{{env `disable_cndn`}}",
     "disk_size": "10140",
     "ftp_proxy": "{{env `ftp_proxy`}}",
     "headless": "",
