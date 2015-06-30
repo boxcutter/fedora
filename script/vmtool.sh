@@ -137,4 +137,4 @@ if [[ $PACKER_BUILDER_TYPE =~ parallels ]]; then
 fi
 
 echo "==> Removing packages needed for building guest tools"
-echo ${PKG_MGR} -y remove gcc cpp kernel-devel kernel-headers perl
+${PKG_MGR} -y remove gcc cpp kernel-devel kernel-headers perl
