@@ -101,6 +101,10 @@ configuration management tool, to override the default of `latest`.
 The value of `CM_VERSION` should have the form `x.y` or `x.y.z`,
 such as `CM_VERSION := 11.12.4`
 
+The variable `DISABLE_CNDN` can be set to disable the use of
+Consistent Network Device Names (CNDN) so that network interfaces are
+named eth[1-9].  Set `DISABLE_CNDN := true`, the default is false.
+
 The variable `UPDATE` can be used to perform OS patch management.  The
 default is to not apply OS updates by default.  When `UPDATE := true`,
 the latest OS updates will be applied.
