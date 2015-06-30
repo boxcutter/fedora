@@ -12,7 +12,8 @@ if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
     # from the install media via ks.cfg
     # Except on Fedora 22 (which uses dnf)
     if [ "${PKG_MGR}" == "dnf" ]; then
-        ${PKG_MGR} -y install kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl
+        ${PKG_MGR} -y install kernel-headers-$(uname -r) \
+                   kernel-devel-$(uname -r) kernel-pae-devel gcc make perl
     fi
 
     cd /tmp
