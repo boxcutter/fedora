@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0 (2015-07-23)
+
+* Upgrade VirtualBox Guest Additions to 5.0.0
+
 ## 1.0.14 (2015-05-31)
 
 * Add templates for Fedora 22
