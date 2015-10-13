@@ -154,7 +154,7 @@
     "iso_checksum": "f2eeed5102b8890e9e6f4b9053717fe73031e699c4b76dc7028749ab66e7f917",
     "iso_name": "Fedora-20-x86_64-DVD.iso",
     "iso_path": "iso",
-    "iso_url": "http://mirrors.kernel.org/fedora/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-DVD.iso",
+    "iso_url": "http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/20/Fedora/x86_64/iso/Fedora-20-x86_64-DVD.iso",
     "no_proxy": "{{env `no_proxy`}}",
     "pkg_mgr": "yum",
     "rsync_proxy": "{{env `rsync_proxy`}}",
