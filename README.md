@@ -2,38 +2,71 @@
 
 ### Overview
 
-This repository contains templates for Fedora that can create Vagrant boxes
-using Packer.
+This repository contains Packer templates for creating Fedora Vagrant boxes.
 
 ## Current Boxes
 
 64-bit boxes:
 
-* [Fedora 22 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora22)
-* [Fedora 21 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21)
-* [Fedora 20 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20)
-* [Fedora 19 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19)
-* [Fedora 18 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18)
-
-32-bit boxes:
-
-* [Fedora 21 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora21-i386)
-* [Fedora 20 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora20-i386)
-* [Fedora 19 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora19-i386)
-* [Fedora 18 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora18-i386)
+* [Fedora 23 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora23)
 
 
-## Building the Vagrant boxes
+## Building the Vagrant boxes with Packer
 
-To build all the boxes, you will need VirtualBox and VMware
-installed.
+To build all the boxes, you will need [VirtualBox](https://www.virtualbox.org/wiki/Downloads), 
+[VMware Fusion](https://www.vmware.com/products/fusion)/[VMware Workstation](https://www.vmware.com/products/workstation) and
+[Parallels](http://www.parallels.com/products/desktop/whats-new/) installed.
 
-A GNU Make `Makefile` drives the process via the following targets:
+Parallels requires that the
+[Parallels Virtualization SDK for Mac](http://www.parallels.com/downloads/desktop)
+be installed as an additional preqrequisite.
 
-    make        # Build all the box types (VirtualBox, VMware & Parallels)
-    make test   # Run tests against all the boxes
-    make list   # Print out individual targets
-    make clean  # Clean up build detritus
+We make use of JSON files containing user variables to build specific versions of Ubuntu.
+You tell `packer` to use a specific user variable file via the `-var-file=` command line
+option.  This will override the default options on the core `fedora.json` packer template,
+which builds Fedora 23 by default.
+
+For example, to build Fedora 23, use the following:
+
+    $ packer build -var-file=fedora23.json fedora.json
+    
+If you want to make boxes for a specific desktop virtualization platform, use the `-only`
+parameter.  For example, to build Fedora 23 for VirtualBox:
+
+    $ packer build -only=virtualbox-iso -var-file=fedora23.json fedora.json
+
+The boxcutter templates currently support the following desktop virtualization strings:
+
+* `parallels-iso` - [Parallels](http://www.parallels.com/products/desktop/whats-new/) desktop virtualization (Requires the Pro Edition - Desktop edition won't work)
+* `virtualbox-iso` - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) desktop virtualization
+* `vmware-iso` - [VMware Fusion](https://www.vmware.com/products/fusion) or [VMware Workstation](https://www.vmware.com/products/workstation) desktop virtualization
+
+## Building the Vagrant boxes with the box script
+
+We've also provided a wrapper script `bin/box` for ease of use, so alternatively, you can use
+the following to build Fedora 23 for all providers:
+
+    $ bin/box build fedora23
+
+Or if you just want to build Fedora 23 for VirtualBox:
+
+    $ bin/box build fedora23 virtualbox
+
+## Building the Vagrant boxes with the Makefile
+
+A GNU Make `Makefile` drives a complete basebox creation pipeline with the following stages:
+
+* `build` - Create basebox `*.box` files
+* `assure` - Verify that the basebox `*.box` files produced function correctly
+* `deliver` - Upload `*.box` files to [Artifactory](https://www.jfrog.com/confluence/display/RTF/Vagrant+Repositories), [Atlas](https://atlas.hashicorp.com/) or an [S3 bucket](https://aws.amazon.com/s3/)
+
+The pipeline is driven via the following targets, making it easy for you to include them
+in your favourite CI tool:
+
+    make build   # Build all available box types
+    make assure  # Run tests against all the boxes
+    make deliver # Upload box artifacts to a repository
+    make clean   # Clean up build detritus
 
 ### Proxy Settings
 
