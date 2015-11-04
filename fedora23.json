@@ -1,0 +1,12 @@
+{
+  "_comment": "Build with `packer build -var-file=fedora23.json fedora.json`",
+  "vm_name": "fedora23",
+  "cpus": "1",
+  "disk_size": "65536",
+  "iso_checksum": "30758dc821d1530de427c9e35212bd79b058bd4282e64b7b34ae1a40c87c05ae",
+  "iso_checksum_type": "sha256",
+  "iso_name": "Fedora-Server-DVD-x86_64-23.iso",
+  "iso_url": "http://fedora.mirror.lstn.net/releases/23/Server/x86_64/iso/Fedora-Server-DVD-x86_64-23.iso",
+  "kickstart": "ks-fedora23.cfg",
+  "memory": "512"
+}

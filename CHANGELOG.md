@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0 (2015-11-03)
+
+* Add Fedora 23 template
+* Port improvements in structure/build parallelism from Ubuntu templates
+
 ## 2.0.2 (2015-08-17)
 
 * Upgrade VirtualBox Guest Additions to 5.0.2

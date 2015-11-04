@@ -95,7 +95,7 @@ if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
         rmdir /mnt/floppy
         /tmp/vmware-tools-distrib/vmware-install.pl -d
     else
-        /tmp/vmware-tools-distrib/vmware-install.pl -d --force
+        /tmp/vmware-tools-distrib/vmware-install.pl -d -f
     fi
 
     rm /home/vagrant/linux.iso

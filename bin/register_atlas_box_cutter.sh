@@ -54,6 +54,9 @@ get_short_description() {
     RAW_VERSION=${RAW_VERSION%-docker}
     RAW_VERSION=${RAW_VERSION%-desktop}
     case ${RAW_VERSION} in
+    23)
+        PRETTY_VERSION="23"
+        ;;
     22)
         PRETTY_VERSION="22"
         ;;
@@ -96,6 +99,9 @@ create_description() {
     RAW_VERSION=${RAW_VERSION%-docker}
     RAW_VERSION=${RAW_VERSION%-desktop}
     case ${RAW_VERSION} in
+    23)
+        PRETTY_VERSION="23"
+        ;;
     22)
         PRETTY_VERSION="22"
         ;;
