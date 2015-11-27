@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1 (2015-11-26)
+
+* Add Fedora 22 template
+* Add Fedora 21 template
+* Make images smaller by delaying creation of swap partition
+
 ## 3.0.0 (2015-11-03)
 
 * Add Fedora 23 template
