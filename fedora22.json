@@ -1,0 +1,12 @@
+{
+  "_comment": "Build with `packer build -var-file=fedora22.json fedora.json`",
+  "vm_name": "fedora22",
+  "cpus": "1",
+  "disk_size": "65536",
+  "iso_checksum": "b2acfa7c7c6b5d2f51d3337600c2e52eeaa1a1084991181c28ca30343e52e0df",
+  "iso_checksum_type": "sha256",
+  "iso_name": "Fedora-Server-DVD-x86_64-22.iso",
+  "iso_url": "http://download.fedoraproject.org/pub/fedora/linux/releases/22/Server/x86_64/iso/Fedora-Server-DVD-x86_64-22.iso",
+  "kickstart": "ks-fedora22.cfg",
+  "memory": "512"
+}

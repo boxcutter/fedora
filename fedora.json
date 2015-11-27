@@ -6,6 +6,32 @@
         "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter><enter>"
       ],
       "disk_size": "{{ user `disk_size` }}",
+      "guest_os_type": "{{ user `vmware_guest_os_type` }}",
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_urls": [
+        "{{ user `iso_path` }}/{{ user `iso_name` }}",
+        "{{ user `iso_url` }}"
+      ],
+      "shutdown_command": "{{ user `shutdown_command` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_wait_timeout": "10000s",
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name` }}",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}"
+      }
+    },
+    {
+      "boot_command": [
+        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter><enter>"
+      ],
+      "disk_size": "{{ user `disk_size` }}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
       "headless": "{{ user `headless` }}",
@@ -30,6 +56,36 @@
         ]
       ],
       "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `vm_name` }}"
+    },
+    {
+      "boot_command": [
+        "<tab> linux text biosdevname=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter><enter>"
+      ],
+      "disk_size": "{{ user `disk_size` }}",
+      "guest_os_type": "{{ user `parallels_guest_os_type` }}",
+      "http_directory": "http",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_urls": [
+        "{{ user `iso_path` }}/{{ user `iso_name` }}",
+        "{{ user `iso_url` }}"
+      ],
+      "parallels_tools_flavor": "lin",
+      "prlctl": [
+        [
+          "set", "{{.Name}}", "--memsize", "{{ user `memory` }}"
+        ],
+        [
+          "set", "{{.Name}}", "--cpus", "{{ user `cpus` }}"
+        ]
+      ],
+      "prlctl_version_file": ".prlctl_version",
+      "shutdown_command": "{{ user `shutdown_command` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_wait_timeout": "10000s",
+      "type": "parallels-iso",
       "vm_name": "{{ user `vm_name` }}"
     }
   ],
@@ -62,6 +118,7 @@
         "script/update.sh",
         "script/vagrant.sh",
         "script/virtualbox.sh",
+        "script/parallels.sh",
         "script/cmtool.sh",
         "script/cleanup.sh"
       ],
@@ -85,6 +142,7 @@
     "iso_url": "http://fedora.mirror.lstn.net/releases/23/Server/x86_64/iso/Fedora-Server-DVD-x86_64-23.iso",
     "memory": "512",
     "no_proxy": "{{env `no_proxy`}}",
+    "parallels_guest_os_type": "fedora-core",
     "pkg_mgr": "dnf",
     "rsync_proxy": "{{env `rsync_proxy`}}",
     "shutdown_command": "echo 'vagrant'|sudo -S shutdown -h now",
@@ -93,7 +151,8 @@
     "update": "false",
     "version": "0.1.0",
     "virtualbox_guest_os_type": "Fedora_64",
-    "vm_name": "fedora23"
+    "vm_name": "fedora23",
+    "vmware_guest_os_type": "fedora-64"
   }
 }
 
