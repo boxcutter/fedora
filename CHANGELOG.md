@@ -3,7 +3,7 @@
 ## 3.0.2 (2015-12-24)
 
 * Upgrade VirtualBox Guest Additions to 5.0.12
-* Upgrade Parallels tools to 11.1.1
+* Upgrade Parallels Tools to 11.1.1
 
 ## 3.0.1 (2015-11-26)
 
