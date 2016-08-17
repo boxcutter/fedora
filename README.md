@@ -8,6 +8,7 @@ This repository contains Packer templates for creating Fedora Vagrant boxes.
 
 64-bit boxes:
 
+* [Fedora 24 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora24)
 * [Fedora 23 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora23)
 
 
