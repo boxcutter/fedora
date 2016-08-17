@@ -19,7 +19,7 @@ TEMPLATE_FILENAMES := $(filter-out fedora.json,$(wildcard *.json))
 BOX_NAMES := $(basename $(TEMPLATE_FILENAMES))
 BOX_FILENAMES := $(TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
 VMWARE_BOX_DIR ?= box/vmware
-VMWARE_TEMPLATE_FILENAMES = $(filter-out fedora21.json fedora22.json fedora23.json,$(TEMPLATE_FILENAMES))
+VMWARE_TEMPLATE_FILENAMES = $(filter-out fedora23.json,$(TEMPLATE_FILENAMES))
 VMWARE_BOX_FILENAMES := $(VMWARE_TEMPLATE_FILENAMES:.json=$(BOX_SUFFIX))
 VMWARE_BOX_FILES := $(foreach box_filename, $(VMWARE_BOX_FILENAMES), $(VMWARE_BOX_DIR)/$(box_filename))
 VIRTUALBOX_BOX_DIR ?= box/virtualbox
@@ -39,18 +39,6 @@ box/virtualbox/fedora23$(BOX_SUFFIX): fedora23.json
 	bin/box build $< virtualbox
 
 box/parallels/fedora23$(BOX_SUFFIX): fedora23.json
-	bin/box build $< parallels
-
-box/virtualbox/fedora22$(BOX_SUFFIX): fedora22.json
-	bin/box build $< virtualbox
-
-box/parallels/fedora22$(BOX_SUFFIX): fedora22.json
-	bin/box build $< parallels
-
-box/virtualbox/fedora21$(BOX_SUFFIX): fedora21.json
-	bin/box build $< virtualbox
-
-box/parallels/fedora21$(BOX_SUFFIX): fedora21.json
 	bin/box build $< parallels
 
 .PHONY: all clean assure deliver
