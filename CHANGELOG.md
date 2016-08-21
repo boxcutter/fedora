@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.4 (2016-08-21)
+
+* Fix access errors
+
+## 3.0.3 (2016-08-17)
+
+* Add Fedora 24 box
+* Upgrade VirtualBox Guest Additions to 5.0.26
+* Upgrade Parallels Tools to 11.1.2
+
 ## 3.0.2 (2015-12-24)
 
 * Upgrade VirtualBox Guest Additions to 5.0.12
