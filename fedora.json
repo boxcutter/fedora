@@ -120,6 +120,7 @@
         "script/virtualbox.sh",
         "script/parallels.sh",
         "script/cmtool.sh",
+        "script/custom.sh",
         "script/cleanup.sh"
       ],
       "type": "shell"
