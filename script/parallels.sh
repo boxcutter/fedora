@@ -10,5 +10,5 @@ if [[ $PACKER_BUILDER_TYPE =~ parallels ]]; then
     rm -f /home/vagrant/.prlctl_version
 
     echo "==> Removing packages needed for building guest tools"
-    ${PKG_MGR} -y remove gcc cpp kernel-devel kernel-headers perl
+    dnf -y remove gcc cpp kernel-devel kernel-headers perl
 fi

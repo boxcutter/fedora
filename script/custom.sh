@@ -4,8 +4,8 @@
 # your environment.
 #
 # For example:
-# yum install -y git tmux bash-completion libsemanage-python
-# yum remove -y alsa-firmware linux-firmware lsscsi net-tools
+# dnf install -y git tmux bash-completion libsemanage-python
+# dnf remove -y alsa-firmware linux-firmware lsscsi net-tools
 
 set -o errexit
 set -o nounset
