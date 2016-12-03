@@ -19,7 +19,7 @@ if [ "$INSTALL_VAGRANT_KEY" = "true" ] || [ "$INSTALL_VAGRANT_KEY" = "1" ]; then
 
   # Give Vagrant user permission to sudo
   echo "Defaults:${SSH_USER} !requiretty" > /etc/sudoers.d/vagrant
-  echo "%${SSH_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
+  echo "${SSH_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
   chmod 440 /etc/sudoers.d/vagrant
 
   echo '==> Installing Vagrant SSH key'
