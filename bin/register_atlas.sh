@@ -64,6 +64,9 @@ get_short_description() {
     RAW_VERSION=${RAW_VERSION%-docker}
     RAW_VERSION=${RAW_VERSION%-desktop}
     case ${RAW_VERSION} in
+    25)
+        PRETTY_VERSION="25"
+        ;;
     24)
         PRETTY_VERSION="24"
         ;;
@@ -89,7 +92,7 @@ get_short_description() {
 
     VIRTUALBOX_VERSION=$(virtualbox --help | head -n 1 | awk '{print $NF}')
     PARALLELS_VERSION=$(prlctl --version | awk '{print $3}')
-    VMWARE_VERSION=10.0.6
+    VMWARE_VERSION=10.0.10
     SHORT_DESCRIPTION="Fedora ${PRETTY_VERSION}${DESKTOP_STRING} (${BIT_STRING})${DOCKER_STRING}"
 }
 
@@ -112,6 +115,9 @@ create_description() {
     RAW_VERSION=${RAW_VERSION%-docker}
     RAW_VERSION=${RAW_VERSION%-desktop}
     case ${RAW_VERSION} in
+    25)
+        PRETTY_VERSION="25"
+        ;;
     24)
         PRETTY_VERSION="24"
         ;;
@@ -137,7 +143,7 @@ create_description() {
 
     VIRTUALBOX_VERSION=$(virtualbox --help | head -n 1 | awk '{print $NF}')
     PARALLELS_VERSION=$(prlctl --version | awk '{print $3}')
-    VMWARE_VERSION=10.0.6
+    VMWARE_VERSION=10.0.10
 
     VMWARE_BOX_FILE=box/vmware/${BOX_NAME}${BOX_SUFFIX}
     VIRTUALBOX_BOX_FILE=box/virtualbox/${BOX_NAME}${BOX_SUFFIX}
