@@ -1,0 +1,12 @@
+{
+  "_comment": "Build with `packer build -var-file=fedora25.json fedora.json`",
+  "vm_name": "fedora25",
+  "cpus": "1",
+  "disk_size": "65536",
+  "iso_checksum": "524bd959dae09ad6fc8e0476ea478700d89f82ec5795d0b1a7b873613f3f26ac",
+  "iso_checksum_type": "sha256",
+  "iso_name": "Fedora-Server-dvd-x86_64-25-1.3.iso",
+  "iso_url": "http://mirror.sfo12.us.leaseweb.net/fedora/linux/releases/25/Server/x86_64/iso/Fedora-Server-dvd-x86_64-25-1.3.iso",
+  "kickstart": "ks-fedora25.cfg",
+  "memory": "512"
+}
