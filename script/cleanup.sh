@@ -1,5 +1,9 @@
 #!/bin/bash -eux
 
+echo "==> Clear out machine id"
+rm -f /etc/machine-id
+touch /etc/machine-id
+
 echo "==> Cleaning up ${PKG_MGR} cache of metadata and packages to save space"
 ${PKG_MGR} -y clean all
 
