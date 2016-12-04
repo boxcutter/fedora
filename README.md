@@ -8,8 +8,8 @@ This repository contains Packer templates for creating Fedora Vagrant boxes.
 
 64-bit boxes:
 
+* [Fedora 25 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora25)
 * [Fedora 24 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora24)
-* [Fedora 23 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora23)
 
 
 ## Building the Vagrant boxes with Packer
@@ -25,16 +25,16 @@ be installed as an additional preqrequisite.
 We make use of JSON files containing user variables to build specific versions of Ubuntu.
 You tell `packer` to use a specific user variable file via the `-var-file=` command line
 option.  This will override the default options on the core `fedora.json` packer template,
-which builds Fedora 23 by default.
+which builds Fedora 25 by default.
 
-For example, to build Fedora 23, use the following:
+For example, to build Fedora 25, use the following:
 
-    $ packer build -var-file=fedora23.json fedora.json
+    $ packer build -var-file=fedora25.json fedora.json
     
 If you want to make boxes for a specific desktop virtualization platform, use the `-only`
-parameter.  For example, to build Fedora 23 for VirtualBox:
+parameter.  For example, to build Fedora 25 for VirtualBox:
 
-    $ packer build -only=virtualbox-iso -var-file=fedora23.json fedora.json
+    $ packer build -only=virtualbox-iso -var-file=fedora25.json fedora.json
 
 The boxcutter templates currently support the following desktop virtualization strings:
 
@@ -45,13 +45,13 @@ The boxcutter templates currently support the following desktop virtualization s
 ## Building the Vagrant boxes with the box script
 
 We've also provided a wrapper script `bin/box` for ease of use, so alternatively, you can use
-the following to build Fedora 23 for all providers:
+the following to build Fedora 25 for all providers:
 
-    $ bin/box build fedora23
+    $ bin/box build fedora25
 
-Or if you just want to build Fedora 23 for VirtualBox:
+Or if you just want to build Fedora 25 for VirtualBox:
 
-    $ bin/box build fedora23 virtualbox
+    $ bin/box build fedora25 virtualbox
 
 ## Building the Vagrant boxes with the Makefile
 
