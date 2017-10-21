@@ -6,10 +6,7 @@ This repository contains Packer templates for creating Fedora Vagrant boxes.
 
 ## Current Boxes
 
-64-bit boxes:
-
-* [Fedora 25 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/fedora25)
-
+We no longer provide pre-built binaries for these templates.
 
 ## Building the Vagrant boxes with Packer
 
@@ -151,11 +148,11 @@ download Internet URLs.
 
 ### Acknowledgments
 
-[Parallels](http://www.parallels.com/) provides a Business Edition license of
+[Parallels](http://www.parallels.com/) provided a Business Edition license of
 their software to run on the basebox build farm.
 
 <img src="http://www.parallels.com/fileadmin/images/corporate/brand-assets/images/logo-knockout-on-red.jpg" width="80">
 
-[SmartyStreets](http://www.smartystreets.com) is providing basebox hosting for the box-cutter project.
+[SmartyStreets](http://www.smartystreets.com) provided basebox hosting for the box-cutter project since 2015 - thank you for your support!
 
 <img src="https://d79i1fxsrar4t.cloudfront.net/images/brand/smartystreets.65887aa3.png" width="320">
