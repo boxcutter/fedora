@@ -119,7 +119,8 @@
         "custom-script.sh",
         "script/cleanup.sh"
       ],
-      "type": "shell"
+      "type": "shell",
+      "expect_disconnect": "true"
     }
   ],
   "variables": {
@@ -149,4 +150,3 @@
     "vmware_guest_os_type": "fedora-64"
   }
 }
-
