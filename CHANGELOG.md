@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.6 (2018-01-03)
+
+* Adding Fedora 27 (workstation & server)
+
 ## 3.0.4 (2016-08-21)
 
 * Fix access errors
@@ -46,7 +50,7 @@
 
 ## 1.0.13 (2015-05-18)
 
-* Upgrade VirtualBox Guest Additions to 4.3.26 
+* Upgrade VirtualBox Guest Additions to 4.3.26
 
 ## 1.0.12 (2015-03-17)
 
