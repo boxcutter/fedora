@@ -30,7 +30,7 @@ For example, to build Fedora 27 Server, use the following:
 If you want to make boxes for a specific desktop virtualization platform, use the `-only`
 parameter.  For example, to build Fedora 27 Server for VirtualBox:
 
-    $ packer build -only=virtualbox-iso -var-file=fedora27.json fedora.json
+    $ packer build -only=virtualbox-iso -var-file=fedora27-server.json fedora.json
 
 The boxcutter templates currently support the following desktop virtualization strings:
 
