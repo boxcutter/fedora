@@ -1,0 +1,12 @@
+{
+  "_comment": "Build with `packer build -var-file=fedora27-ws.json fedora.json`",
+  "vm_name": "fedora27-ws",
+  "cpus": "1",
+  "disk_size": "65536",
+  "iso_checksum": "18ef4a6f9f470b40bd0cdf21e6c8f5c43c28e3a2200dcc8578ec9da25a6b376b",
+  "iso_checksum_type": "sha256",
+  "iso_name": "Fedora-Workstation-netinst-x86_64-27-1.6.iso",
+  "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-netinst-x86_64-27-1.6.iso",
+  "kickstart": "ks-fedora27-ws.cfg",
+  "memory": "2048"
+}

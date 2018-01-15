@@ -1,0 +1,12 @@
+{
+  "_comment": "Build with `packer build -var-file=fedora27-server.json fedora.json`",
+  "vm_name": "fedora27-server",
+  "cpus": "1",
+  "disk_size": "65536",
+  "iso_checksum": "e383dd414bb57231b20cbed11c4953cac71785f7d4f5990b0df5ad534a0ba95c",
+  "iso_checksum_type": "sha256",
+  "iso_name": "Fedora-Server-dvd-x86_64-27-1.6.iso",
+  "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/27/Server/x86_64/iso/Fedora-Server-dvd-x86_64-27-1.6.iso",
+  "kickstart": "ks-fedora27-server.cfg",
+  "memory": "2048"
+}
