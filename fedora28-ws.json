@@ -1,0 +1,13 @@
+{
+  "_comment": "Build with `packer build -var-file=fedora28-ws.json fedora.json`",
+  "vm_name": "fedora28-ws",
+  "cpus": "1",
+  "disk_size": "65536",
+  "iso_checksum": "34da8b46b23d786bb1d43a77a4dcd713c446fc70a4ace0c6f52e43b086350562",
+  "iso_checksum_type": "sha256",
+  "iso_name": "Fedora-Workstation-netinst-x86_64-28-1.1.iso",
+  "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/28/Workstation/x86_64/iso/Fedora-Workstation-netinst-x86_64-28-1.1.iso",
+  "kickstart": "ks-fedora28-ws.cfg",
+  "memory": "2048",
+  "update": "true"
+}
