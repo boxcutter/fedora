@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.7 (2018-05-17)
+
+* Adding Fedora 28 (workstation & server)
+
 ## 3.0.6 (2018-01-03)
 
 * Adding Fedora 27 (workstation & server)

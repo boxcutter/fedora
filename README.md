@@ -23,14 +23,14 @@ You tell `packer` to use a specific user variable file via the `-var-file=` comm
 option.  This will override the default options on the core `fedora.json` packer template,
 which builds Fedora 25 by default.
 
-For example, to build Fedora 27 Server, use the following:
+For example, to build Fedora 28 Server, use the following:
 
-    $ packer build -var-file=fedora27-server.json fedora.json
+    $ packer build -var-file=fedora28-server.json fedora.json
 
 If you want to make boxes for a specific desktop virtualization platform, use the `-only`
-parameter.  For example, to build Fedora 27 Server for VirtualBox:
+parameter.  For example, to build Fedora 28 Server for VirtualBox:
 
-    $ packer build -only=virtualbox-iso -var-file=fedora27-server.json fedora.json
+    $ packer build -only=virtualbox-iso -var-file=fedora28-server.json fedora.json
 
 The boxcutter templates currently support the following desktop virtualization strings:
 
@@ -41,13 +41,13 @@ The boxcutter templates currently support the following desktop virtualization s
 ## Building the Vagrant boxes with the box script
 
 We've also provided a wrapper script `bin/box` for ease of use, so alternatively, you can use
-the following to build Fedora 27 for all providers:
+the following to build Fedora 28 for all providers:
 
-    $ bin/box build fedora27
+    $ bin/box build fedora28
 
-Or if you just want to build Fedora 27 for VirtualBox:
+Or if you just want to build Fedora 28 for VirtualBox:
 
-    $ bin/box build fedora27 virtualbox
+    $ bin/box build fedora28 virtualbox
 
 ## Building the Vagrant boxes with the Makefile
 
