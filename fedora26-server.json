@@ -6,7 +6,7 @@
   "iso_checksum": "fad18a43b9cec152fc8a1fd368950eaf59be66b1a15438149a0c3a509c56cf2f",
   "iso_checksum_type": "sha256",
   "iso_name": "Fedora-Server-dvd-x86_64-26-1.5.iso",
-  "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/26/Server/x86_64/iso/Fedora-Server-dvd-x86_64-26-1.5.iso",
+  "iso_url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/26/Server/x86_64/iso/Fedora-Server-dvd-x86_64-26-1.5.iso",
   "kickstart": "ks-fedora26-server.cfg",
   "memory": "2048"
 }
