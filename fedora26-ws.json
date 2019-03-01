@@ -6,7 +6,7 @@
   "iso_checksum": "f514040516dc512119aad6316746569b231e157724d4f257af76825c483e1598",
   "iso_checksum_type": "sha256",
   "iso_name": "Fedora-Workstation-netinst-x86_64-26-1.5.iso",
-  "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/26/Workstation/x86_64/iso/Fedora-Workstation-netinst-x86_64-26-1.5.iso",
+  "iso_url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/26/Workstation/x86_64/iso/Fedora-Workstation-netinst-x86_64-26-1.5.iso",
   "kickstart": "ks-fedora26-ws.cfg",
   "memory": "2048"
 }
