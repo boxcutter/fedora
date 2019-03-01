@@ -1,0 +1,13 @@
+{
+  "_comment": "Build with `packer build -var-file=fedora29-server.json fedora.json`",
+  "vm_name": "fedora29-server",
+  "cpus": "1",
+  "disk_size": "65536",
+  "iso_checksum": "aa7fb0e6e5b71774ebdaab0dae76bdd9246a5bc7aedc28b7f1103aaaf9750654",
+  "iso_checksum_type": "sha256",
+  "iso_name": "Fedora-Server-netinst-x86_64-29-1.2.iso",
+  "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/29/Server/x86_64/iso/Fedora-Server-netinst-x86_64-29-1.2.iso",
+  "kickstart": "ks-fedora29-server.cfg",
+  "memory": "2048",
+  "update": "true"
+}
