@@ -6,5 +6,4 @@ if [[ $UPDATE  =~ true || $UPDATE =~ 1 || $UPDATE =~ yes ]]; then
     # reboot
     echo "Rebooting the machine..."
     reboot
-    sleep 60
 fi
