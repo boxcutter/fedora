@@ -1,8 +1,8 @@
-# Packer templates for Fedora
+# Packer templates for Fedora written in legacy JSON
 
 ### Overview
 
-This repository contains Packer templates for creating Fedora Vagrant boxes.
+This repository contains Packer templates for creating Fedora Vagrant boxes written in legacy JSON.
 
 ## Current Boxes
 
